@@ -1,0 +1,169 @@
+body {
+  margin:0;
+  padding:0;
+  width: 6.25in;
+  font-size: 0.9em;
+}
+
+hr {
+  display: none;
+}
+
+/**
+ *  Getting things to the full page width
+ */
+#container {
+  width: 100%;
+}
+
+#main-content {
+  width: 100%;
+}
+
+#page-col-1, #page-col-3 {
+  display: none;
+}
+
+#inner-page {
+  width: 100%;
+}
+
+#page-col-2 {
+  width: 100%;
+}
+
+#side-content {
+  display: none;
+}
+
+/**
+ *  Footer
+ */
+#page-bottom-toolbar {
+  display: none;
+}
+
+#page-footer {
+  display: none;
+}
+
+/**
+ *  Header
+ */
+
+h1.wikilogo {
+  margin: 0;
+}
+
+.page-history {
+  display: none;
+}
+
+#page-toolbar {
+  display: none;
+}
+
+/**
+ *  Page content
+ */
+
+#wikipage-inner a:link:after, #wikipage-inner a:visited:after {
+//  content: " (" attr(href) ") ";
+  text-decoration: none;
+}
+
+#wikipage-inner {
+  font-family: arial, sans-serif;
+}
+
+#wikipage-inner hr {
+  display: block;
+}
+
+#wikipage-inner p {
+  margin: 0;
+}
+
+#wikipage-inner ul {
+  margin: 0;
+}
+
+/**
+ *  Comments
+ */
+#comments {
+  page-break-before: always;
+  border-top:1px solid black;
+  padding-top:1.5em;
+}
+
+#comments.nocomments {
+  display: none;
+}
+
+#comment-form {
+  display: none;
+}
+
+.comment {
+  padding-left: 55px;
+}
+
+.comment a {
+  color: #000;
+  text-decoration: none;
+}
+
+.comment .header h4 {
+  margin: 0;
+  font-size: 0.8em;
+  font-weight: normal;
+  color: #999;
+}
+
+.comment .header p {
+  color: #999;
+  font-size: 0.7em;
+  margin: 0;
+}
+
+.comment .header p a {
+  display: none;
+}
+
+.comment .header img {
+  float: left;
+  margin-left: -55px;
+  padding-right: 8px;
+}
+
+.comment .content {
+  margin-top: -1em;
+  font-size: 1.0em;
+}
+
+.comments-header h3 { 
+  display:none;
+}
+
+/**
+ *  Titles
+ */
+
+h1 h2 h3 { font-family: verdana; }
+h1 { font-size:1.4em; }
+h2 { font-size:1.2em; }
+h3 { font-size:1.1em; font-weight:bold; }
+h1.wikititle, h1.wikilogo { display:none; }
+h1 a { text-decoration:none; color:black; }
+
+h1.pagetitle, #wikipage-inner h1, #wikipage-inner h2, #wikipage-inner h3, #wikipage-inner h4 {
+  font-family: arial, sans-serif;
+  font-weight: bold;
+  margin: 0;
+}
+
+#wikipage-inner h5, #wikipage-inner h6 {
+  font: 1em/1em normal arial, sans-serif;
+  margin: 0;
+}

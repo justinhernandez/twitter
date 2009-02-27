@@ -1,0 +1,1352 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml"><head>
+
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="REST+API+Documentation_files/packed-m-v0902061208301515.css" type="text/css" media="screen,projection"> 
+<script type="text/javascript" src="REST+API+Documentation_files/packed-v0902251229266737.js"></script>
+<link rel="stylesheet" href="REST+API+Documentation_files/print-v09021211142086.css" media="print" type="text/css">
+<!--[if lte IE 6]>
+<style>h1 {margin-top:14px;} .cnr,.ct {display:none}</style>
+<script type="text/javascript">function ie6minwidth(){var size = (document.documentElement.clientWidth<960 ? '960px' : '100%'); $(document.body).setStyle({'width':size});} document.observe("dom:loaded", ie6minwidth); Event.observe(window, 'resize', ie6minwidth); </script>
+<![endif]-->
+<!--[if lte IE 6]><link rel="stylesheet" type="text/css" href="/layout/common/css/ie6.css" /><![endif]-->
+<link media="screen,projection" rel="stylesheet" type="text/css" href="REST+API+Documentation_files/theme_css.css">    	<script>PBwiki.init(function(){ UserPrefs.initialize({"hide":false}); });</script>
+<script>
+PBinfo = {"CurrentPage":{"sessCookie":"ws","page":"REST API Documentation","editorVersion":"1234922951","isDev":false,"hasPlugins":true},"CurrentWiki":{"isPublic":true,"debug":null,"filecount":2,"pagecount":16,"name":"twitterapi"},"GetTimes":{"commenttime":1227288518,"filetime":1233960622,"foldertime":1235503250,"pagetime":1235610141,"permtime":1235438680,"tagtime":1233960880},"CheckPermissions":{"pageperm":"read","uid":"public-browser-proxy-id","wikiperm":"read"},"GetFeatures":{"page_security":true,"folder_security":true,"hidepages":true,"lockpages":true,"ajaxedit":true,"ajaxsave":true,"autocomplete_v2":true}};
+</script>
+<link rel="alternate" title="Twitter API Wiki Recent Changes" href="http://apiwiki.twitter.com/rss.xml" type="application/rss+xml">
+<link rel="alternate" title="Twitter API Wiki / REST API Documentation" href="http://apiwiki.twitter.com/rss.xml?page=REST+API+Documentation" type="application/rss+xml">
+<title>Twitter API Wiki / REST API Documentation</title>
+</head><body class="nn">
+<div id="wrapper">
+<table id="container" cellspacing="0">
+<tbody><tr>
+<td id="main-content">
+<h1 class="wikilogo"><a href="http://apiwiki.twitter.com/"><img src="REST+API+Documentation_files/twitterapi_logo.png" border="0"></a></h1>    
+<div id="page">
+<div id="page-toolbar">
+<div id="page-toolbar-inner">
+<div id="view-tab" class="active"><a href="http://apiwiki.twitter.com/REST-API-Documentation">View</a></div>
+<div id="edit-tab" class="logintoedit"><a href="javascript:void(0);">Edit</a></div>
+<div id="expand-collapse-page"><a id="expand-collapse-page-link" href="javascript:void(0);"></a></div>
+</div>
+</div>
+<div id="edit-button-bubble" style="display: none;">
+<div id="edit-button-arrow"></div>
+<a class="close" href="#"></a>
+<table cellspacing="0"><tbody><tr class="header"><td class="left"></td><td class="right"></td></tr><tr class="content"><td class="left"></td><td class="right">
+<div class="inner-content">
+<div class="top">
+<a href="http://apiwiki.twitter.com/session/login?edit=1&amp;return_to_page=REST%20API%20Documentation">Log in</a> to edit this page.
+</div>
+</div>
+</td></tr></tbody></table>
+</div>
+<table id="inner-page" cellspacing="0">
+<tbody><tr>
+<td id="page-col-1" width="4">&nbsp;</td>
+<td id="page-col-2">
+<div id="wikicontent">
+<h1 class="pagetitle box">REST API Documentation</h1>
+<div class="page-history"><a href="http://apiwiki.twitter.com/FindPage?RevisionsFor=REST%20API%20Documentation" class="iconbutton historyicon">Page history</a>  last edited by <a href="javascript:alert('Please%20join%20this%20wiki%20to%20see%20more%20details%20about%20this%20user.');" class="iconbutton usericon">Matt Sanford</a> 1 day, 21 hours ago
+</div>
+<div id="lockinfo">
+</div>
+<div id="wikipage" class="box wikistyle">
+<div style="" id="wikipage-inner">
+<a name="Introduction"></a>
+<h2>Introduction</h2>
+<p><a href="http://twitter.com/" rel="nofollow">Twitter</a> exposes
+some of its functionality via an Application Programming Interface
+(API). This document is a reference for that functionality, and aims to
+serve as a reference for developers building tools that talk to Twitter.</p>
+<p>&nbsp;</p>
+<a name="TableofContents"></a>
+<h2>Table of Contents</h2>
+<a name="IntroductionTableofContentsConceptsAuthenticationRESTfulResourcesParametersHTTPRequestsHTTPHeadersHTTPStatusCodesErrorMessagesRateLimitingPaginationLimitingEncodingGettingStartedBeNicetotheServersTheEasiestWaytoPlayAroundwiththeTwitterAPIFrequentlyAskedQuestionsStatusMethodspublictimelinefriendstimelineusertimelineshowupdaterepliesdestroyUserMethodsfriendsfollowersshowDirectMessageMethodsdirectmessagessentnewdestroyFriendshipMethodscreatedestroyexistsSocialGraphMethodsidsfriendsidsfollowersAccountMethodsverifycredentialsendsessionupdatelocationupdatedeliverydeviceupdateprofilecolorsupdateprofileimageupdateprofilebackgroundimageratelimitstatusupdateprofileFavoriteMethodsfavoritescreatedestroyNotificationMethodsfollowleaveBlockMethodscreatedestroyHelpMethodstestReturnElementsStatuselementBasicuserinformationelementExtendeduserinformationelementDirectmessageelementReturnValuescreatedatdescriptionfavoritedfavoritescountfollowingfollowerscountfriendscountnamehourlylimitidinreplytoscreennameinreplytostatusidinreplytouseridlocationnotificationsprofilebackgroundcolorprofilebackgroundimageurlprofilebackgroundtileprofileimageurlprofilelinkcolorprofilesidebarbordercolorprofilesidebarfillcolorprofiletextcolorprotectedrecipientidrecipientscreennameremaininghitsresettimeresettimeinsecondsscreennamesenderidsenderscreennamesourcestatusescounttexttimezonetruncatedurlutcoffsetGettingHelpAuthors"></a>
+<h2><table style="border: medium none ; margin: 0pt; padding: 0pt; background: transparent none repeat scroll 0% 0%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;"><tbody><tr style="border: medium none ; margin: 0pt; background: transparent none repeat scroll 0% 0%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;"><td style="border: medium none ; margin: 0pt; background: transparent none repeat scroll 0% 0%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;"><div class="toc"><ol type="1"><ol type="a"><li><a href="#Introduction">Introduction</a></li><li><a href="#TableofContents">Table of Contents</a></li><li><a href="#Concepts">Concepts</a><ol type="i"><li><a href="#Authentication">Authentication</a></li><li><a href="#RESTfulResources">RESTful Resources</a></li><li><a href="#Parameters">Parameters</a></li><li><a href="#HTTPRequests">HTTP Requests</a></li><li><a href="#HTTPHeaders">HTTP Headers</a></li><li><a href="#HTTPStatusCodes">HTTP Status Codes</a></li><li><a href="#ErrorMessages">Error Messages</a></li><li><a href="#RateLimiting">Rate Limiting</a></li><li><a href="#PaginationLimiting">Pagination Limiting</a></li><li><a href="#Encoding">Encoding</a></li></ol></li><li><a href="#GettingStarted">Getting Started</a><ol type="i"><li><a href="#BeNicetotheServers">Be Nice to the Servers</a></li></ol><ol type="i"><li><a href="#TheEasiestWaytoPlayAroundwiththeTwitterAPI">The Easiest Way to Play Around with the Twitter API</a></li></ol></li><li><a href="#FrequentlyAskedQuestions">Frequently Asked Questions</a></li><li><a href="#StatusMethods">Status Methods</a><ol type="i"><li><a href="#publictimeline">public_timeline</a></li><li><a href="#friendstimeline">friends_timeline</a></li><li><a href="#usertimeline">user_timeline</a></li><li><a href="#show">show</a></li><li><a href="#update">update</a></li><li><a href="#replies">replies</a></li><li><a href="#destroy">destroy</a></li></ol></li><li><a href="#UserMethods">User Methods</a><ol type="i"><li><a href="#friends">friends</a></li><li><a href="#followers">followers</a></li><li><a href="#show">show</a></li></ol></li><li><a href="#DirectMessageMethods">Direct Message Methods</a><ol type="i"><li><a href="#directmessages">direct_messages</a></li><li><a href="#sent">sent</a></li><li><a href="#new">new</a></li><li><a href="#destroy">destroy</a></li></ol></li><li><a href="#FriendshipMethods">Friendship Methods</a><ol type="i"><li><a href="#create">create</a></li><li><a href="#destroy">destroy</a></li><li><a href="#exists">exists</a></li></ol></li><li><a href="#SocialGraphMethods">Social Graph Methods</a><ol type="i"><li><a href="#idsfriends">ids (friends)</a></li><li><a href="#idsfollowers">ids (followers)</a></li></ol></li><li><a href="#AccountMethods">Account Methods</a><ol type="i"><li><a href="#verifycredentials">verify_credentials</a></li><li><a href="#endsession">end_session</a></li><li><a href="#updatelocation">update_location</a></li><li><a href="#updatedeliverydevice">update_delivery_device</a></li><li><a href="#updateprofilecolors">update_profile_colors</a></li><li><a href="#updateprofileimage">update_profile_image</a></li><li><a href="#updateprofilebackgroundimage">update_profile_background_image</a></li><li><a href="#ratelimitstatus">rate_limit_status</a></li><li><a href="#updateprofile">update_profile</a></li></ol></li><li><a href="#FavoriteMethods">Favorite Methods</a><ol type="i"><li><a href="#favorites">favorites</a></li><li><a href="#create">create</a></li><li><a href="#destroy">destroy</a></li></ol></li><li><a href="#NotificationMethods">Notification Methods</a><ol type="i"><li><a href="#follow">follow</a></li><li><a href="#leave">leave</a></li></ol></li><li><a href="#BlockMethods">Block Methods</a><ol type="i"><li><a href="#create">create</a></li><li><a href="#destroy">destroy</a></li></ol></li><li><a href="#HelpMethods">Help Methods</a><ol type="i"><li><a href="#test">test</a></li></ol></li><li><a href="#ReturnElements">Return Elements</a><ol type="i"><li><a href="#Statuselement">Status element</a></li><li><a href="#Basicuserinformationelement">Basic user information element</a></li><li><a href="#Extendeduserinformationelement">Extended user information element</a></li><li><a href="#Directmessageelement">Direct message element</a></li></ol></li><li><a href="#ReturnValues">Return Values</a><ol type="i"><li><a href="#createdat">created_at</a></li><li><a href="#description">description</a></li><li><a href="#favorited">favorited</a></li><li><a href="#favoritescount">favorites_count</a></li><li><a href="#following">following</a></li><li><a href="#followerscount">followers_count</a></li><li><a href="#friendscount">friends_count</a></li><li><a href="#name">name</a></li><li><a href="#hourlylimit">hourly_limit</a></li><li><a href="#id">id</a></li><li><a href="#inreplytoscreenname">in_reply_to_screen_name</a></li><li><a href="#inreplytostatusid">in_reply_to_status_id</a></li><li><a href="#inreplytouserid">in_reply_to_user_id</a></li><li><a href="#location">location</a></li><li><a href="#notifications">notifications</a></li><li><a href="#profilebackgroundcolor">profile_background_color</a></li><li><a href="#profilebackgroundimageurl">profile_background_image_url</a></li><li><a href="#profilebackgroundtile">profile_background_tile</a></li><li><a href="#profileimageurl">profile_image_url</a></li><li><a href="#profilelinkcolor">profile_link_color</a></li><li><a href="#profilesidebarbordercolor">profile_sidebar_border_color</a></li><li><a href="#profilesidebarfillcolor">profile_sidebar_fill_color</a></li><li><a href="#profiletextcolor">profile_text_color</a></li><li><a href="#protected">protected</a></li><li><a href="#recipientid">recipient_id</a></li><li><a href="#recipientscreenname">recipient_screen_name</a></li><li><a href="#remaininghits">remaining_hits</a></li><li><a href="#resettime">reset_time</a></li><li><a href="#resettimeinseconds">reset_time_in_seconds</a></li><li><a href="#screenname">screen_name</a></li><li><a href="#senderid">sender_id</a></li><li><a href="#senderscreenname">sender_screen_name</a></li><li><a href="#source">source</a></li><li><a href="#statusescount">statuses_count</a></li><li><a href="#text">text</a></li><li><a href="#timezone">time_zone</a></li><li><a href="#truncated">truncated</a></li><li><a href="#url">url</a></li><li><a href="#utcoffset">utc_offset</a></li></ol></li><li><a href="#GettingHelp">Getting Help</a></li><li><a href="#Authors">Authors</a></li></ol></ol></div></td></tr></tbody></table><br clear="left"></h2>
+<a name="nbsp"></a>
+<h2>&nbsp;</h2>
+<a name="Concepts"></a>
+<h2>Concepts</h2>
+<p>&nbsp;</p>
+<a name="Authentication"></a>
+<h3>Authentication</h3>
+<p>Many Twitter <span>API</span> methods require authentication.&nbsp;
+All responses are relative to the context of the authenticating
+user.&nbsp; For example, an attempt to retrieve information on a
+protected user who is not friends with the requesting user will fail.</p>
+<p>&nbsp;</p>
+<p>For the time being, <a href="http://en.wikipedia.org/wiki/Basic_authentication_scheme" rel="nofollow"><span>HTTP</span> Basic Authentication</a>
+is the only supported authentication scheme.&nbsp; When authenticating
+via Basic Auth, use your registered username or email address&nbsp;as
+the username component. Session cookies and parameter-based login are
+known to work but are not officially supported.</p>
+<p>&nbsp;</p>
+<p>The <a href="http://oauth.net/">OAuth</a> token-based authentication scheme will shortly be offered as an experimental beta release.</p>
+<p>&nbsp;</p>
+<a name="RESTfulResources"></a>
+<h3>RESTful Resources</h3>
+<p>The Twitter <span>API</span>&nbsp;attempts to conform to the design principles of <a href="http://en.wikipedia.org/wiki/Representational_State_Transfer" rel="nofollow">Representational State Transfer</a>
+(REST). You’ll find that you can simply change the file extension on
+most any request to get results in the format of your choice. This
+document notes which formats are available for each method.</p>
+<p>&nbsp;</p>
+<p>Twitter presently supports the following data formats: <a href="http://en.wikipedia.org/wiki/XML" rel="nofollow"><span>XML</span></a>, <a href="http://en.wikipedia.org/wiki/Json" rel="nofollow"><span>JSON</span></a>, and the <a href="http://en.wikipedia.org/wiki/RSS" rel="nofollow"><span>RSS</span></a> and <a href="http://en.wikipedia.org/wiki/Atom_%28standard%29" rel="nofollow">Atom</a> syndication formats.</p>
+<p>&nbsp;</p>
+<a name="Parameters"></a>
+<h3>Parameters</h3>
+<p>Some <span>API</span> methods take optional or requisite parameters.
+Where applicable, we’ve documented those parameters. Remember to
+convert to UTF-8 and <a href="http://en.wikipedia.org/wiki/Percent_encoding" rel="nofollow"><span>URL</span> encode</a> parameters that take complex strings.&nbsp; Please note that the <font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace">page</font></font></font></font></font></font></font></font></font></font></font> parameter begins at 1, not 0.</p>
+<p>&nbsp;</p>
+<p>There are two special parameters in the Twitter API:</p>
+<p>&nbsp;</p>
+<ul>
+<li><span style="font-family: 'Courier New';">callback</span><span style="font-family: Arial;">:</span>
+Used only when requesting JSON formatted responses, this parameter
+wraps your response in a callback method of your choice. &nbsp;For
+example, appending <span style="font-family: 'Courier New';">&amp;callback=myFancyFunction</span>&nbsp;to your request will result in a response body of: <span style="font-family: 'Courier New';">myFancyFunction(...)<span style="font-family: Arial;">. &nbsp;Callbacks may only contain alphanumeric characters and underscores; any invalid characters will be stripped.</span></span></li>
+<li><span style="font-family: 'Courier New';">suppress_response_codes</span><span style="font-family: Arial;">: If</span> this parameter is present, all responses will be returned with a <span style="font-family: 'Courier New';">200 OK</span>
+status code - even errors. &nbsp;This parameter exists to accommodate
+Flash and JavaScript applications running in browsers that intercept
+all non-200 responses. &nbsp;If used, it's then the job of the client
+to determine error states by parsing the response body. &nbsp;Use with
+caution, as those error messages may change.</li>
+</ul>
+<p>&nbsp;</p>
+<a name="HTTPRequests"></a>
+<h3><span>HTTP</span> Requests</h3>
+<p>Methods to retrieve data from the Twitter <span>API</span> require a <font face="courier new,monospace"><span>GET</span></font> request.&nbsp; Methods that submit, change, or destroy data require a <font face="courier new,monospace">POST</font>. &nbsp;A <span style="font-family: 'Courier New';">DELETE</span>
+request is also accepted for methods that destroy data.
+API&nbsp;Methods that require a particular HTTP&nbsp;method will return
+an error if you do not make your request with the correct method.</p>
+<p>&nbsp;</p>
+<a name="HTTPHeaders"></a>
+<h3><span style="border-width: 0px; margin: 0px; padding: 0px; font-weight: inherit; font-style: inherit; font-size: 100%; font-family: inherit; vertical-align: baseline;">HTTP Headers</span></h3>
+<p>Where noted, some API methods will return different results based on
+HTTP headers sent by the client.&nbsp; For example, most methods that
+allow a <font face="courier new,monospace">since <font face="arial,sans-serif">parameter will also respond to an <font face="courier new,monospace">If-Modified-Since</font>
+header.&nbsp; Where the same behavior can be controlled by both a
+parameter and an HTTP header, the parameter will take precedence.</font></font></p>
+<p>&nbsp;</p>
+<a name="HTTPStatusCodes"></a>
+<h3><span>HTTP</span> Status Codes</h3>
+<p>The Twitter <span>API</span> attempts to return appropriate <a href="http://en.wikipedia.org/wiki/List_of_HTTP_status_codes" rel="nofollow"><span>HTTP</span> status codes</a> for every request. Here's what's going on with our various status codes:</p>
+<p>&nbsp;</p>
+<ul>
+<li>200 OK: everything went awesome.</li>
+<li>304 Not Modified: there was no new data to return.</li>
+<li>400 Bad Request: your request is invalid, and we'll return an error
+message that tells you why. This is the status code returned if you've
+exceeded the rate limit (see below).&nbsp;</li>
+<li>401 Not Authorized: either you need to provide authentication credentials, or the credentials provided aren't valid.</li>
+<li>403 Forbidden: we understand your request, but are refusing to
+fulfill it.&nbsp; An accompanying error message should explain why.</li>
+<li>404 Not Found: either you're requesting an invalid URI or the resource in question doesn't exist (ex: no such user).&nbsp;</li>
+<li>500 Internal Server Error: we did something wrong.&nbsp; Please
+post to the group about it and the Twitter team will investigate.</li>
+<li>502 Bad Gateway: returned if Twitter is down or being upgraded.</li>
+<li>503 Service Unavailable: the Twitter servers are up, but are overloaded with requests.&nbsp; Try again later.</li>
+</ul>
+<p>&nbsp;</p>
+<a name="ErrorMessages"></a>
+<h3>Error Messages</h3>
+<p>When the Twitter API returns error messages, it does so in your
+requested format.&nbsp; For example, an error from an XML method might
+look like this:</p>
+<p>&nbsp;</p>
+<p><span style="font-family: courier new,monospace;">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></p>
+<p><span style="font-family: courier new,monospace;">&lt;hash&gt;</span></p>
+<p><span style="font-family: courier new,monospace;">&nbsp; &lt;request&gt;/direct_messages/destroy/456.xml&lt;/request&gt;</span></p>
+<p><span style="font-family: courier new,monospace;">&nbsp; &lt;error&gt;No direct message with that ID found.&lt;/error&gt;</span></p>
+<p><span style="font-family: courier new,monospace;">&lt;/hash&gt;</span></p>
+<p>&nbsp;</p>
+<a name="RateLimiting"></a>
+<h3>Rate Limiting</h3>
+<p>Clients are allowed 100 requests per 60 sixty minute time period,
+starting from their first request. &nbsp;The rate limited is applied to
+both authenticated and unauthenticated requests. &nbsp;Unauthenticated
+requests are rate limited by IP, and authenticated requests are tracked
+by the requesting user&nbsp;ID.&nbsp; POST requests (ex: updating
+status, sending a direct message) do not count against the rate limit,
+but some actions may have caps on them to prevent abuse. &nbsp;</p>
+<p>&nbsp;</p>
+<p>Notification that a client has exceeded the rate limit will be sent
+as JSON or XML when either is the requested format, and otherwise will
+be sent in plain text.&nbsp; A status code of 400 will be returned when
+the client has exceeded the rate limit.</p>
+<p>&nbsp;</p>
+<p>If you are developing an application that requires more frequent requests to the Twitter API, please <a href="http://twitter.com/help/request_whitelisting" rel="nofollow">request whitelisting</a>&nbsp;and
+we'll get back to you, usually within 48 hours or less. Users and IPs
+on the whitelist are allowed a maximum of 20,000 requests per hour.</p>
+<p>&nbsp;</p>
+<p>See also the <i>rate_limit_status</i> API call under <b>Account Methods</b>.&nbsp;</p>
+<p>&nbsp;</p>
+<a name="PaginationLimiting"></a>
+<h3>Pagination Limiting</h3>
+<p>Clients may request up to 3,200 statuses via the <span style="font-family: 'Courier New';">page</span> and <span style="font-family: 'Courier New';">count</span>
+parameters. Requests for more than the limit will result in a reply
+with a status code of 200 and an empty result in the format requested.</p>
+<p>&nbsp;</p>
+<a name="Encoding"></a>
+<h3>Encoding</h3>
+<p>The Twitter API supports <a href="http://en.wikipedia.org/wiki/UTF-8" rel="nofollow">UTF-8</a>
+encoding. Please note that angle brackets ("&lt;" and "&gt;") are
+entity-encoded to prevent Cross-Site Scripting attacks for web-embedded
+consumers of JSON API output. The resulting encoded entities <strong>do</strong> count towards the 140 character limit.</p>
+<p>&nbsp;</p>
+<p>When requesting XML, the response is UTF-8 encoded.&nbsp; Symbols
+and characters outside of the standard ASCII range may be translated
+to&nbsp;<a href="http://www.webstandards.org/learn/reference/charts/entities/" style="border-width: 0px; margin: 0px; padding: 0px; font-weight: inherit; font-style: inherit; font-size: 100%; font-family: inherit; vertical-align: baseline; color: rgb(17, 68, 136) ! important;" rel="nofollow">HTML entities</a>.</p>
+<a name="nbsp"></a>
+<h2>&nbsp;</h2>
+<a name="GettingStarted"></a>
+<h2>Getting Started</h2>
+<a name="nbsp"></a>
+<h2>&nbsp;</h2>
+<a name="BeNicetotheServers"></a>
+<h3>Be Nice to the Servers</h3>
+<p>In order to keep the API running smoothly, please obey the following guidelines:&nbsp;</p>
+<p>&nbsp;</p>
+<ul>
+<li>If your application does not keep local state, request only the
+first page of information that you need, and load additional pages only
+when triggered by user interaction. Use the <span style="font-family: courier new,monospace;">page</span> parameter. Avoid using the <span style="font-family: courier new,monospace;">count</span> parameter.</li>
+</ul>
+<ul>
+<li>If your application keeps a local archive that persists between
+sessions, it's okay to request an entire timeline up to 200 statuses.
+Save it locally and avoid requesting it again. Then behave as above, or
+use the <span style="font-family: courier new,monospace;">since_id</span> parameter along with a high <span style="font-family: courier new,monospace;">count</span> to request only statuses you haven't seen before.</li>
+</ul>
+<a name="nbsp"></a>
+<h2>&nbsp;</h2>
+<a name="TheEasiestWaytoPlayAroundwiththeTwitterAPI"></a>
+<h3>The Easiest Way to Play Around with the Twitter API</h3>
+<p>If your system has <a href="http://curl.haxx.se/" rel="nofollow">curl</a> (and it should!), you’ve already got a great way to poke around the Twitter <span>API</span>. Here are some examples:</p>
+<p>&nbsp;</p>
+<ul>
+<li>Get the public timeline in RSS format, unauthenticated: <font face="courier new,monospace">curl <a href="http://twitter.com/statuses/public_timeline.rss">http://twitter.com/statuses/public_timeline.rss</a></font></li>
+<li>Get updates from users you follow in XML, authenticated: <font face="courier new,monospace">curl -u username:<i>password</i> <a href="http://twitter.com/statuses/friends_timeline.xml">http://twitter.com/statuses/friends_timeline.xml</a></font></li>
+<li>See just the headers for that last request: <font face="courier new,monospace">curl --head <i>-u username</i>:<i>password</i> <a href="http://twitter.com/statuses/friends_timeline.json">http://twitter.com/statuses/friends_timeline.xml</a></font></li>
+<li>Post a status update and get the resulting status back as JSON: <font face="courier new,monospace">curl -u username:<i>password</i> -d status="<i>your message here</i>" <a href="http://twitter.com/statuses/update.xml%C2%A0">http://twitter.com/statuses/update.json</a></font></li>
+</ul>
+<a name="nbsp"></a>
+<h2>&nbsp;</h2>
+<a name="FrequentlyAskedQuestions"></a>
+<h2>Frequently Asked Questions</h2>
+<a name="nbsp"></a>
+<h2>&nbsp;</h2>
+<p>We maintain a <a href="http://apiwiki.twitter.com/FAQ">list of frequently asked questions</a> right here on the API Wiki.</p>
+<p>&nbsp;</p>
+<a name="StatusMethods"></a>
+<h2>Status Methods</h2>
+<a name="publictimeline"></a>
+<h3>public_timeline</h3>
+<div>Returns the 20 most recent statuses from non-protected users who
+have set a custom user icon.&nbsp; Does not require
+authentication.&nbsp; <font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><span style="font-family: arial,sans-serif;">Note that <a href="http://groups.google.com/group/twitter-development-talk/browse_thread/thread/f881564598a947a7#" rel="nofollow">the public timeline is cached for 60 seconds</a> so requesting it more often than that is a waste of resources.</span></font></font></font></div>
+<p><b>&nbsp;</b></p>
+<p><b>URL:</b> <font face="courier new,monospace">http://twitter.com/statuses/public_timeline.<i>format</i></font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><b>Formats:</b> xml, json, rss, atom</font></font></p>
+<p><font face="arial,sans-serif"><b>Method(s):</b> GET</font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><b>API limit:</b> Not applicable</font></font></p>
+<p><strong><font face="courier new,monospace"><font face="arial,sans-serif">Returns:</font></font></strong> <font face="courier new,monospace"><font face="arial,sans-serif">list of <a href="#Statuselement">status elements</a></font></font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><b>&nbsp;</b></font></font></p>
+<a name="friendstimeline"></a>
+<h3>friends_timeline</h3>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif">Returns
+the 20 most recent statuses posted by the authenticating user and that
+user's friends. This is the equivalent of /home on the Web.&nbsp;</font></font></font></font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>URL:</b> <font face="courier new,monospace">http://twitter.com/statuses/friends_timeline.<i>format</i></font></font></font></font></font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><b><font face="arial,sans-serif">Formats:</font></b> <font face="arial,sans-serif">xml, json, rss, atom</font></font></font></font></font></font></p>
+<p><font face="arial,sans-serif"><b>Method(s):</b> GET</font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>API Limit</b>: 1 per request&nbsp;</font></font></font></font></font></font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>Parameters:</b></font></font></font></font></font></font></p>
+<ul>
+<li><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace">since</font>.&nbsp;
+Optional.&nbsp; Narrows the returned results to just those statuses
+created after the specified HTTP-formatted date, up to 24 hours
+old.&nbsp; The same behavior is available by setting an
+If-Modified-Since header in your HTTP request.&nbsp; Ex: <font face="courier new,monospace">http://twitter.com/statuses/friends_timeline.rss?since=Tue%2C+27+Mar+2007+22%3A55%3A48+GMT</font></font></font></font></font></font></font></font></font></font></font></li>
+<li><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace">since_id</font>.&nbsp; Optional.&nbsp; Returns only statuses with an ID greater than (that is, more recent than) the specified ID.&nbsp; Ex: <font face="courier new,monospace">http://twitter.com/statuses/</font></font></font><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace">friends_timeline</font></font></font></font></font></font></font></font></font></font></font><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace">.xml?since_id=12345</font></font></font></li>
+<li><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace">count</font>.&nbsp; Optional.&nbsp; Specifies the number of statuses to retrieve. May not be greater than 200.&nbsp; Ex: <font face="courier new,monospace">http://twitter.com/statuses/</font></font></font></font></font></font></font></font></font></font></font><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace">friends_timeline.xml</font></font></font></font></font></font></font></font></font></font></font><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace">?count=5</font>&nbsp;</font></font></font></font></font></font></font></font></font></font></li>
+<li>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace">page. <font face="arial,sans-serif">Optional.</font></font></font></font></font></font></font></font></font></font></font></font> <font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif">Ex:</font></font></font></font></font></font></font></font></font></font></font></font> <font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace">http://twitter.com/statuses/friends_timeline.rss?page=3</font></font></font></font></font></font></font></font></font></font></font></p>
+</li>
+</ul>
+<p><strong><font face="courier new,monospace"><font face="arial,sans-serif">Returns:</font></font></strong> <font face="courier new,monospace"><font face="arial,sans-serif">list of <a href="#Statuselement">status elements</a></font></font></p>
+<a name="nbsp"></a>
+<h3>&nbsp;</h3>
+<a name="usertimeline"></a>
+<h3>user_timeline</h3>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif">Returns
+the 20 most recent statuses posted from the authenticating user. It's
+also possible to request another user's timeline via the <font face="courier new,monospace">id</font> parameter below. This is the equivalent of the Web /archive page for your own user, or the profile page for a third party.</font></font></font></font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>URL:</b> <font face="courier new,monospace">http://twitter.com/statuses/user_timeline.<i>format</i></font></font></font></font></font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><b><font face="arial,sans-serif">Formats:</font></b> <font face="arial,sans-serif">xml, json, rss, atom</font></font></font></font></font></font></p>
+<p><font face="arial,sans-serif"><b>Method(s):</b> GET</font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>Parameters:</b></font></font></font></font></font></font></p>
+<ul>
+<li><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace">id</font>.&nbsp; Optional.&nbsp; Specifies the ID or screen name of the user for whom to return the friends_timeline.&nbsp; Ex: <font face="courier new,monospace">http://twitter.com/statuses/user_timeline/12345.xml <font face="arial,sans-serif">or <font face="courier new,monospace">http://twitter.com/statuses/user_timeline/bob.json<font face="arial,sans-serif">.</font></font></font></font></font></font></font></font></font></font></li>
+<li><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace">count</font>.&nbsp; Optional.&nbsp; Specifies the number of statuses to retrieve. May not be greater than 200.&nbsp; Ex: <font face="courier new,monospace">http://twitter.com/statuses/user_timeline.xml?count=5</font>&nbsp;</font></font></font></font></font></font></font></font></font></font></li>
+<li><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace">since</font>.&nbsp; Optional.&nbsp; Narrows the returned results to just those statuses created after the specified HTTP-formatted date</font></font></font></font></font></font></font></font></font></font><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif">, up to 24 hours old</font></font></font></font></font></font></font></font></font></font><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif">.&nbsp; The same behavior is available by setting an If-Modified-Since header in your HTTP request.&nbsp; Ex: <font face="courier new,monospace">http://twitter.com/statuses/user_timeline.rss?since=Tue%2C+27+Mar+2007+22%3A55%3A48+GMT</font></font></font></font></font></font></font></font></font></font></font></li>
+<li><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace">since_id</font>.&nbsp; Optional.&nbsp; Returns only statuses with an ID greater than (that is, more recent than) the specified ID.&nbsp; Ex: <font face="courier new,monospace">http://twitter.com/statuses/user_timeline.xml?since_id=12345</font></font></font></li>
+<li><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace">page. <font face="arial,sans-serif">Optional.</font></font></font></font></font></font></font></font></font></font></font></font> <font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif">Ex:</font></font></font></font></font></font></font></font></font></font></font></font> <font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace">http://twitter.com/statuses/user_timeline.rss?page=3</font></font></font></font></font></font></font></font></font></font></font></li>
+</ul>
+<p><strong><font face="courier new,monospace"><font face="arial,sans-serif">Returns:</font></font></strong> <font face="courier new,monospace"><font face="arial,sans-serif">list of <a href="#Statuselement">status elements</a></font></font></p>
+<a name="nbsp"></a>
+<h3>&nbsp;</h3>
+<a name="show"></a>
+<h3>show</h3>
+<p>Returns a single status, specified by the id parameter below.&nbsp; The status's author will be returned inline.</p>
+<p><b>URL:</b> <font face="courier new,monospace">http://twitter.com/statuses/show/<i>id</i>.<i>format</i></font></p>
+<p><b>Formats:</b> xml, json</p>
+<p><font face="arial,sans-serif"><b>Method(s):</b> GET</font></p>
+<p><b>Parameters:</b></p>
+<ul>
+<li><font face="courier new,monospace">id</font>.&nbsp; Required.&nbsp; The numerical ID of the status you're trying to retrieve.&nbsp; Ex: <font face="courier new,monospace">http://twitter.com/statuses/show/123.xml&nbsp;</font></li>
+</ul>
+<p><strong><font face="courier new,monospace"><font face="arial,sans-serif">Returns:</font></font></strong> <a href="#Statuselement"><font face="courier new,monospace"><font face="arial,sans-serif">status element</font></font></a></p>
+<a name="nbsp"></a>
+<h3>&nbsp;</h3>
+<a name="update"></a>
+<h3>update</h3>
+<p>Updates the authenticating user's status.&nbsp; Requires the <font face="courier new,monospace">status</font> parameter specified below.&nbsp; <font face="courier new,monospace"><font face="arial,sans-serif">Request must be a</font> POST<font face="arial,sans-serif">. &nbsp;A status update with text identical to the authenticating user's current status will be ignored.</font></font></p>
+<p><b>URL:</b> <font face="courier new,monospace">http://twitter.com/statuses/update.<i>format</i></font></p>
+<p><b>Formats:</b> xml, json.&nbsp; Returns the posted status in requested format when successful.</p>
+<p><font face="arial,sans-serif"><b>Method(s):</b> POST</font></p>
+<p><b>Parameters:</b></p>
+<ul>
+<li><font face="courier new,monospace">status</font>.&nbsp;
+Required.&nbsp; The text of your status update.&nbsp; Be sure to URL
+encode as necessary. &nbsp;Should not be more than 140 characters.</li>
+<li><span style="font-family: courier new,monospace;">in_reply_to_status_id</span>.&nbsp;
+Optional.&nbsp; The ID of an existing status that the status to be
+posted is in reply to.&nbsp; This implicitly sets the
+in_reply_to_user_id attribute of the resulting status to the user ID of
+the message being replied to.&nbsp; Invalid/missing status IDs will be
+ignored.</li>
+</ul>
+<p><strong><font face="courier new,monospace"><font face="arial,sans-serif">Returns:</font></font></strong> <a href="#Statuselement"><font face="courier new,monospace"><font face="arial,sans-serif">status element</font></font></a></p>
+<a name="nbsp"></a>
+<h3>&nbsp;</h3>
+<a name="replies"></a>
+<h3>replies</h3>
+<p>Returns the 20 most recent @replies (status updates prefixed with <i>@username</i>) for the authenticating user.</p>
+<p><b>URL:</b> <font face="courier new,monospace">http://twitter.com/statuses/replies.<i>format</i></font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><b>Formats:</b> xml, json, rss, atom</font></font></p>
+<p><font face="arial,sans-serif"><b>Method(s):</b> GET</font></p>
+<p><b>Parameters:</b></p>
+<ul>
+<li><font face="courier new,monospace">page</font>.&nbsp; Optional. Retrieves the 20 next most recent replies.&nbsp; Ex: <font face="courier new,monospace">http://twitter.com/statuses/replies.xml?page=3</font></li>
+<li><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace">since</font>.&nbsp; Optional.&nbsp; Narrows the returned results to just those replies created after the specified HTTP-formatted date</font></font></font></font></font></font></font></font></font></font><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif">, up to 24 hours old</font></font></font></font></font></font></font></font></font></font><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif">.&nbsp; The same behavior is available by setting an If-Modified-Since header in your HTTP request.&nbsp; Ex: <font face="courier new,monospace">http://twitter.com/statuses/replies.xml?since=Tue%2C+27+Mar+2007+22%3A55%3A48+GMT</font></font></font></font></font></font></font></font></font></font></font></li>
+<li><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace">since_id</font>.&nbsp; Optional.&nbsp; Returns only statuses with an ID greater than (that is, more recent than) the specified ID.&nbsp; Ex: <font face="courier new,monospace">http://twitter.com/statuses/replies.xml?since_id=12345</font></font></font></li>
+</ul>
+<p><strong><font face="courier new,monospace"><font face="arial,sans-serif">Returns:</font></font></strong> <font face="courier new,monospace"><font face="arial,sans-serif">list of <a href="#Statuselement">status elements</a></font></font></p>
+<a name="nbsp"></a>
+<h3>&nbsp;</h3>
+<a name="destroy"></a>
+<h3>destroy</h3>
+<p>Destroys the status specified by the required ID parameter.&nbsp;
+The authenticating user must be the author of the specified status.</p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>URL:</b> <font face="courier new,monospace">http://twitter.com/statuses/destroy/<i>id</i>.<i>format</i></font></font></font></font></font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>Formats:</b> xml, json</font></font></font></font></p>
+<p><font face="arial,sans-serif"><b>Method(s):</b> POST, DELETE</font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>Parameters:</b></font></font></font></font></p>
+<ul>
+<li><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace">id</font>.&nbsp; Required.&nbsp; The ID of the status to destroy.&nbsp; Ex: <font face="courier new,monospace">http://twitter.com/statuses/destroy/12345.json</font> or <font face="courier new,monospace">http://twitter.com/statuses/destroy/23456.xml</font></font></font></font></font></li>
+</ul>
+<p><strong><font face="courier new,monospace"><font face="arial,sans-serif">Returns:</font></font></strong> <a href="#Statuselement"><font face="courier new,monospace"><font face="arial,sans-serif">status element</font></font></a></p>
+<a name="nbsp"></a>
+<h2>&nbsp;</h2>
+<a name="UserMethods"></a>
+<h2>User Methods</h2>
+<a name="friends"></a>
+<h3>friends</h3>
+<p>Returns the authenticating user's friends, each with current status
+inline. They are ordered by the order in which they were added as
+friends. <font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif">It's also possible to request another user's recent friends list via the <font face="courier new,monospace">id</font> parameter below.<b>&nbsp;</b></font></font></font></font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>&nbsp;</b></font></font></font></font><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>URL:</b> <font face="courier new,monospace">http://twitter.com/statuses/friends.<i>format</i></font></font></font></font></font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>Formats:</b> xml, json</font></font></font></font></p>
+<p><font face="arial,sans-serif"><b>Method(s):</b> GET</font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>Parameters:</b></font></font></font></font></p>
+<ul>
+<li><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace">id</font>.&nbsp; Optional.&nbsp; The ID or screen name of the user for whom to request a list of friends.&nbsp; Ex: <font face="courier new,monospace">http://twitter.com/statuses/friends/12345.json</font> or <font face="courier new,monospace">http://twitter.com/statuses/friends/bob.xml</font></font></font></font></font></li>
+<li><font style="font-family: courier new,monospace;" face="courier new,monospace">page</font>.&nbsp; Optional. Retrieves the next 100 friends.&nbsp; Ex: <font face="courier new,monospace">http://twitter.com/statuses/friends.xml?page=2</font></li>
+</ul>
+<p><strong>Returns:</strong> list of <a href="#Basicuserinformationelement">basic user information elements</a></p>
+<a name="nbsp"></a>
+<h3>&nbsp;</h3>
+<a name="followers"></a>
+<h3>followers</h3>
+<p>Returns the authenticating user's followers, each with current
+status inline.&nbsp; They are ordered by the order in which they joined
+Twitter (this is going to be changed).&nbsp;</p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>URL:</b> <font face="courier new,monospace">http://twitter.com/statuses/followers.<i>format</i></font></font></font></font></font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>Formats:</b> xml, json</font></font></font></font></p>
+<p><font face="arial,sans-serif"><b>Method(s):</b> GET</font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>Parameters:</b>&nbsp;</font></font></font></font></p>
+<ul>
+<li><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace">id</font>.&nbsp; Optional.&nbsp; The ID or screen name of the user for whom to request a list of followers.&nbsp; Ex: <font face="courier new,monospace">http://twitter.com/statuses/followers/12345.json</font> or <font face="courier new,monospace">http://twitter.com/statuses/followers/bob.xml</font></font></font></font></font></li>
+<li><font style="font-family: courier new,monospace;" face="courier new,monospace">page</font>.&nbsp; Optional. Retrieves the next 100 followers.&nbsp; Ex: <font face="courier new,monospace">http://twitter.com/statuses/followers.xml?page=2</font></li>
+</ul>
+<p><strong>Returns:</strong> list of <a href="#Basicuserinformationelement">basic user information elements</a></p>
+<a name="nbsp"></a>
+<h3>&nbsp;</h3>
+<a name="show"></a>
+<h3>show</h3>
+<p>Returns extended information of a given user, specified by ID or screen name as per the required <font face="courier new,monospace">id</font>
+parameter below.&nbsp; This information includes design settings, so
+third party developers can theme their widgets according to a given
+user's preferences. You must be properly authenticated to request the
+page of a protected user.</p>
+<p><b>URL:</b> <font face="courier new,monospace">http://twitter.com/users/show/<i>id</i>.<i>format</i></font></p>
+<p><b>Formats:</b> xml, json</p>
+<p><font face="arial,sans-serif"><b>Method(s):</b> GET</font></p>
+<p><b>Parameters:</b></p>
+<p>One of the following is required:</p>
+<ul>
+<li><font face="courier new,monospace">id</font>. &nbsp;<span style="font-family: Arial;">The ID or screen name of a user.&nbsp; Ex:</span> <font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace">http://twitter.com/users/show/12345.json</font> or <font face="courier new,monospace">http://twitter.com/users/show/bob.xml</font></font></font></font></font></li>
+<li><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace">email<font face="arial,sans-serif">. May be used in place of "id" parameter above.&nbsp; The email address of a user.&nbsp; Ex: <font face="courier new,monospace">http://twitter.com/users/show.xml?email=test@example.com</font></font></font></font></font></font></font></li>
+<li><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace">user_id</font></font></font></font></font></font></font><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif">. May be used in place of "id" parameter above. The user id of a user.</font></font></font></font></font></font> <font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif">Ex: <font face="courier new,monospace">http://twitter.com/users/show.xml?user_id=12345</font></font></font></font></font></font></font></li>
+<li><span style="font-family: Courier New;">screen_name</span><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif">. May be used in place of "id" parameter above. The screen name of a user.</font></font></font></font></font></font> <font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif">Ex: <font face="courier new,monospace">http://twitter.com/users/show.xml?screen_name=bob</font></font></font></font></font></font></font></li>
+</ul>
+<p><strong>Returns:</strong> <a href="#Extendeduserinformationelement">extended user information element</a></p>
+<a name="nbsp"></a>
+<h2>&nbsp;</h2>
+<a name="DirectMessageMethods"></a>
+<h2>Direct Message Methods</h2>
+<p>&nbsp;</p>
+<a name="directmessages"></a>
+<h3>direct_messages</h3>
+<p>Returns a list of the 20 most recent direct messages sent to the
+authenticating user.&nbsp; The XML and JSON versions include detailed
+information about the sending and recipient users.</p>
+<p><b>URL:</b> <font face="courier new,monospace">http://twitter.com/direct_messages.<i>format</i></font></p>
+<p><b>Formats:</b> xml, json, rss, atom<b>&nbsp;</b></p>
+<p><font face="arial,sans-serif"><b>Method(s):</b> GET</font></p>
+<p><b>Parameters:</b></p>
+<ul>
+<li><font face="courier new,monospace">since</font>.&nbsp; Optional.&nbsp; Narrows the resulting list of direct messages to just those sent after the specified HTTP-formatted date<font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif">, up to 24 hours old</font></font></font></font></font></font></font></font></font></font>.&nbsp; The same behavior is available by setting the If-Modified-Since parameter in your HTTP request.&nbsp; Ex: <font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace">http://twitter.com/direct_messages.atom?since=Tue%2C+27+Mar+2007+22%3A55%3A48+GMT</font></font></font></font></font></font></font></font></font></font></font></li>
+<li><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace">since_id</font>.&nbsp;
+Optional.&nbsp; Returns only direct messages with an ID greater than
+(that is, more recent than) the specified ID.&nbsp; Ex: <font face="courier new,monospace">http://twitter.com/direct_messages.xml?since_id=12345</font></font></font></li>
+<li><font face="courier new,monospace">page</font>.&nbsp; Optional. Retrieves the 20 next most recent direct messages.&nbsp; Ex: <font face="courier new,monospace">http://twitter.com/direct_messages.xml?page=3</font></li>
+</ul>
+<p><strong>Return:</strong> list of <a href="#Directmessageelement">direct message elements</a></p>
+<a name="nbsp"></a>
+<h3>&nbsp;</h3>
+<a name="sent"></a>
+<h3>sent</h3>
+<p>Returns a list of the 20 most recent direct messages sent by the
+authenticating user.&nbsp; The XML and JSON versions include detailed
+information about the sending and recipient users.&nbsp;</p>
+<p><b>URL:</b> <font face="courier new,monospace">http://twitter.com/direct_messages/sent.<i>format</i></font></p>
+<p><b>Formats:</b> xml, json</p>
+<p><font face="arial,sans-serif"><b>Method(s):</b> GET</font></p>
+<p><b>Parameters:</b></p>
+<ul>
+<li><font face="courier new,monospace">since</font>.&nbsp; Optional.&nbsp; Narrows the resulting list of direct messages to just those sent after the specified HTTP-formatted date<font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif">, up to 24 hours old</font></font></font></font></font></font></font></font></font></font>.&nbsp; The same behavior is available by setting the If-Modified-Since parameter in your HTTP request.&nbsp; Ex: <font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace">http://twitter.com/direct_messages/sent.xml?since=Tue%2C+27+Mar+2007+22%3A55%3A48+GMT</font></font></font></font></font></font></font></font></font></font></font></li>
+<li><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace">since_id</font>.&nbsp;
+Optional.&nbsp; Returns only sent direct messages with an ID greater
+than (that is, more recent than) the specified ID.&nbsp; Ex: <font face="courier new,monospace">http://twitter.com/direct_messages/sent.xml?since_id=12345</font></font></font></li>
+<li><font face="courier new,monospace">page</font>.&nbsp; Optional. Retrieves the 20 next most recent direct messages sent.&nbsp; Ex: <font face="courier new,monospace">http://twitter.com/direct_messages/sent.xml?page=3</font></li>
+</ul>
+<p><strong>Return:</strong> list of <a href="#Directmessageelement">direct message elements</a></p>
+<a name="nbsp"></a>
+<h3>&nbsp;</h3>
+<a name="new"></a>
+<h3>new</h3>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif">Sends a new direct message to the specified user from the authenticating user.&nbsp; Requires both the <font face="courier new,monospace">user</font> and <font face="courier new,monospace">text</font> parameters below.&nbsp;</font></font></font></font></font></font></font></font></font></font></font></font> <font face="courier new,monospace"><font face="arial,sans-serif">Request must be a</font> POST<font face="arial,sans-serif">.&nbsp;</font></font> Returns the sent message in the requested format when successful.&nbsp;&nbsp;</p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>URL:</b> <font face="courier new,monospace">http://twitter.com/direct_messages/new.<i>format</i></font></font></font></font></font></font></font></font></font></font></font></font></font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>Formats:</b> xml, json&nbsp;&nbsp;</font></font></font></font></font></font></font></font></font></font></font></font></p>
+<p><font face="arial,sans-serif"><b>Method(s):</b> POST</font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>Parameters:</b></font></font></font></font></font></font></font></font></font></font></font></font></p>
+<ul>
+<li><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace">user</font>.&nbsp; Required.&nbsp; The ID or screen name of the recipient user.</font></font></font></font></font></font></font></font></font></font></font></font></li>
+<li><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace">text</font>.&nbsp;
+Required.&nbsp; The text of your direct message.&nbsp; Be sure to URL
+encode as necessary, and keep it under 140 characters. &nbsp;</font></font></font></font></font></font></font></font></font></font></font></font></li>
+</ul>
+<p><strong>Return:</strong> <a href="#Directmessageelement">direct message element</a></p>
+<a name="nbsp"></a>
+<h3>&nbsp;</h3>
+<a name="destroy"></a>
+<h3>destroy</h3>
+<p>Destroys the direct message specified in the required ID
+parameter.&nbsp; The authenticating user must be the recipient of the
+specified direct message.</p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>URL:</b> <font face="courier new,monospace">http://twitter.com/direct_messages/destroy/<i>id</i>.<i>format</i></font></font></font></font></font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>Formats:</b> xml, json</font></font></font></font></p>
+<p><font face="arial,sans-serif"><b>Method(s):</b> POST, DELETE</font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>Parameters:</b></font></font></font></font></p>
+<ul>
+<li><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace">id</font>.&nbsp; Required.&nbsp; The ID of the direct message to destroy.&nbsp; Ex: <font face="courier new,monospace">http://twitter.com/direct_messages/destroy/12345.json</font> or <font face="courier new,monospace">http://twitter.com/direct_messages/destroy/23456.xml</font></font></font></font></font></li>
+</ul>
+<p><strong>Return:</strong> list of <a href="#Directmessageelement">direct message elements</a></p>
+<a name="nbsp"></a>
+<h2>&nbsp;</h2>
+<a name="FriendshipMethods"></a>
+<h2>Friendship Methods</h2>
+<a name="create"></a>
+<h3>create</h3>
+<p>Befriends the user specified in the ID parameter as the
+authenticating user.&nbsp; Returns the befriended user in the requested
+format when successful.&nbsp; Returns a string describing the failure
+condition when unsuccessful.</p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>URL:</b> <font face="courier new,monospace">http://twitter.com/friendships/create/<i>id</i>.<i>format</i></font></font></font></font></font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>Formats:</b> xml, json</font></font></font></font></p>
+<p><font face="arial,sans-serif"><b>Method(s):</b> POST</font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>Parameters:</b></font></font></font></font></p>
+<ul>
+<li><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace">id</font>.&nbsp; Required.&nbsp; The ID or screen name of the user to befriend.&nbsp; Ex: <font face="courier new,monospace">http://twitter.com/friendships/create/12345.json</font> or <font face="courier new,monospace">http://twitter.com/friendships/create/bob.xml</font></font></font></font></font></li>
+<li><span style="font-family: 'Courier New';">follow</span>. &nbsp;Optional. &nbsp;Enable notifications for the target user in addition to becoming friends. &nbsp;Ex: &nbsp;<span style="font-family: 'Courier New';">http://twitter.com/friendships/create/bob.json?follow=true</span></li>
+</ul>
+<p><strong>Returns:&nbsp;</strong><a href="#Basicuserinformationelement">basic user information element</a></p>
+<a name="nbsp"></a>
+<h3>&nbsp;</h3>
+<a name="destroy"></a>
+<h3>destroy</h3>
+<p>Discontinues friendship with the user specified in the ID parameter
+as the authenticating user.&nbsp; Returns the un-friended user in the
+requested format when successful.&nbsp; Returns a string describing the
+failure condition when unsuccessful.&nbsp;&nbsp;</p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>URL:</b> <font face="courier new,monospace">http://twitter.com/friendships/destroy/<i>id</i>.<i>format</i></font></font></font></font></font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>Formats:</b> xml, json</font></font></font></font></p>
+<p><font face="arial,sans-serif"><b>Method(s):</b> POST, DELETE</font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>Parameters:</b></font></font></font></font></p>
+<ul>
+<li><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace">id</font>.&nbsp; Required.&nbsp; The ID or screen name of the user with whom to discontinue friendship.&nbsp; Ex: <font face="courier new,monospace">http://twitter.com/friendships/destroy/12345.json</font> or <font face="courier new,monospace">http://twitter.com/friendships/destroy/bob.xml</font></font></font></font></font></li>
+</ul>
+<p><strong>Returns:&nbsp;</strong><a href="#Basicuserinformationelement">basic user information element</a></p>
+<a name="nbsp"></a>
+<h3>&nbsp;</h3>
+<a name="exists"></a>
+<h3>exists</h3>
+<p>Tests if a friendship exists between two users.</p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>URL:</b> <font face="courier new,monospace">http://twitter.com/friendships/exists.<i>format</i></font></font></font></font></font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>Formats:</b> xml, json</font></font></font></font></p>
+<p><font face="arial,sans-serif"><b>Method(s):</b> GET</font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>Parameters:</b></font></font></font></font></p>
+<ul>
+<li><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font style="font-family: courier new,monospace;" face="courier new,monospace">user_a</font>.&nbsp; Required.&nbsp; The ID or screen_name of the first user to test friendship for.</font></font></font></font></li>
+<li><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font style="font-family: courier new,monospace;" face="courier new,monospace">user_b</font>.&nbsp; Required.&nbsp; The ID or screen_name of the second user to test friendship for.</font></font></font></font></li>
+<li><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif">Ex: <font face="courier new,monospace">http://twitter.com/friendships/exists.xml?user_a=alice&amp;user_b=bob</font></font></font></font></font></li>
+</ul>
+<p><strong>Returns:</strong> true, false</p>
+<p>&nbsp;</p>
+<a name="SocialGraphMethods"></a>
+<h2>Social Graph Methods</h2>
+<a name="idsfriends"></a>
+<h3>ids (friends)</h3>
+<p style="border-width: 0px; margin: 0px; padding: 0px; font-weight: inherit; font-style: inherit; font-size: 100%; font-family: inherit; vertical-align: baseline; line-height: 1.5em; color: rgb(67, 67, 67);">Returns an array of numeric IDs for every user the specified user is following.</p>
+<p style="border-width: 0px; margin: 0px; padding: 0px; font-weight: inherit; font-style: inherit; font-size: 100%; font-family: inherit; vertical-align: baseline; line-height: 1.5em; color: rgb(67, 67, 67);"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>URL:</b>&nbsp;<font face="courier new,monospace">http://twitter.com/friends/ids.</font><em><font face="courier new,monospace">xml</font></em></font></font></font></font></p>
+<p style="border-width: 0px; margin: 0px; padding: 0px; font-weight: inherit; font-style: inherit; font-size: 100%; font-family: inherit; vertical-align: baseline; line-height: 1.5em; color: rgb(67, 67, 67);"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>Formats:</b>&nbsp;xml, json</font></font></font></font></p>
+<p style="border-width: 0px; margin: 0px; padding: 0px; font-weight: inherit; font-style: inherit; font-size: 100%; font-family: inherit; vertical-align: baseline; line-height: 1.5em; color: rgb(67, 67, 67);"><font face="arial,sans-serif"><b>Method(s):</b>&nbsp;GET</font></p>
+<p style="border-width: 0px; margin: 0px; padding: 0px; font-weight: inherit; font-style: inherit; font-size: 100%; font-family: inherit; vertical-align: baseline; line-height: 1.5em; color: rgb(67, 67, 67);"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>Parameters:</b></font></font></font></font></p>
+<ul style="border-width: 0px; margin: 0px 0px 0px 3em; padding: 0px; font-weight: inherit; font-style: inherit; font-size: 100%; font-family: inherit; vertical-align: baseline;">
+<li style="border-width: 0px; margin: 0px; padding: 0px; font-weight: inherit; font-style: inherit; font-size: 100%; font-family: inherit; vertical-align: baseline;"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font>id</font><font face="arial,sans-serif">. &nbsp;Optional.&nbsp; The ID or screen_name of the user to retrieve the friends ID&nbsp;list for. &nbsp;</font></font></font></font><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif">Ex:&nbsp;<font face="courier new,monospace">http://twitter.com/friends/ids/bob.xml</font></font></font></font></font></li>
+</ul>
+<p style="border-width: 0px; margin: 0px; padding: 0px; font-weight: inherit; font-style: inherit; font-size: 100%; font-family: inherit; vertical-align: baseline; line-height: 1.5em; color: rgb(67, 67, 67);"><strong>Returns:</strong>&nbsp;list of IDs&nbsp;</p>
+<p>&nbsp;</p>
+<a name="idsfollowers"></a>
+<h3>ids (followers)</h3>
+<p style="border-width: 0px; margin: 0px; padding: 0px; font-weight: inherit; font-style: inherit; font-size: 100%; font-family: inherit; vertical-align: baseline; line-height: 1.5em; color: rgb(67, 67, 67);">Returns an array of numeric IDs for every user the specified user is followed by.</p>
+<p style="border-width: 0px; margin: 0px; padding: 0px; font-weight: inherit; font-style: inherit; font-size: 100%; font-family: inherit; vertical-align: baseline; line-height: 1.5em; color: rgb(67, 67, 67);"><b>URL:</b>&nbsp;<font face="courier new,monospace">http://twitter.com/followers/ids.<i>format</i></font></p>
+<p style="border-width: 0px; margin: 0px; padding: 0px; font-weight: inherit; font-style: inherit; font-size: 100%; font-family: inherit; vertical-align: baseline; line-height: 1.5em; color: rgb(67, 67, 67);"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>Formats:</b>&nbsp;xml, json</font></font></font></font></p>
+<p style="border-width: 0px; margin: 0px; padding: 0px; font-weight: inherit; font-style: inherit; font-size: 100%; font-family: inherit; vertical-align: baseline; line-height: 1.5em; color: rgb(67, 67, 67);"><font face="arial,sans-serif"><b>Method(s):</b>&nbsp;GET</font></p>
+<p style="border-width: 0px; margin: 0px; padding: 0px; font-weight: inherit; font-style: inherit; font-size: 100%; font-family: inherit; vertical-align: baseline; line-height: 1.5em; color: rgb(67, 67, 67);"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>Parameters:</b></font></font></font></font></p>
+<ul style="border-width: 0px; margin: 0px 0px 0px 3em; padding: 0px; font-weight: inherit; font-style: inherit; font-size: 100%; font-family: inherit; vertical-align: baseline;">
+<li style="border-width: 0px; margin: 0px; padding: 0px; font-weight: inherit; font-style: inherit; font-size: 100%; font-family: inherit; vertical-align: baseline;"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font>id</font><font face="arial,sans-serif">. &nbsp;Optional.&nbsp; The ID or screen_name of the user to retrieve the friends ID&nbsp;list for. &nbsp;</font></font></font></font><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif">Ex:&nbsp;<font face="courier new,monospace">http://twitter.com/followers/ids/bob.xml</font></font></font></font></font></li>
+</ul>
+<p style="border-width: 0px; margin: 0px; padding: 0px; font-weight: inherit; font-style: inherit; font-size: 100%; font-family: inherit; vertical-align: baseline; line-height: 1.5em; color: rgb(67, 67, 67);"><strong>Returns:</strong>&nbsp;list of IDs</p>
+<a name="nbsp"></a>
+<h2>&nbsp;</h2>
+<a name="AccountMethods"></a>
+<h2>Account Methods</h2>
+<a name="verifycredentials"></a>
+<h3>verify_credentials</h3>
+<p>Returns an HTTP 200 OK response code and a representation of the
+requesting user if authentication was successful; returns a 401 status
+code and an error message if not.&nbsp; Use this method to test if
+supplied user credentials are valid.</p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>URL:</b> <font face="courier new,monospace">http://twitter.com/account/verify_credentials</font></font></font></font></font><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace">.<i>format</i></font></font></font></font></font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>Formats:</b>&nbsp;xml, json</font></font></font></font></p>
+<p><font face="arial,sans-serif"><b>Method(s):</b> GET</font></p>
+<a name="nbsp"></a>
+<h3>&nbsp;</h3>
+<a name="endsession"></a>
+<h3>end_session</h3>
+<p>Ends the session of the authenticating user, returning a null
+cookie.&nbsp; Use this method to sign users out of client-facing
+applications like widgets.</p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>URL:</b> <font face="courier new,monospace">http://twitter.com/account/end_session.</font><em><font face="courier new,monospace">format</font></em></font></font></font></font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>Formats:</b>&nbsp;xml, json</font></font></font></font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>Method(s):</b> POST</font></font></font></font></p>
+<a name="nbsp"></a>
+<h3>&nbsp;</h3>
+<a name="updatelocation"></a>
+<h3>update_location</h3>
+<p>This method has been deprecated in favor of the <span style="font-family: 'Courier New';">update_profile</span>
+method below. &nbsp;Its URL&nbsp;will continue to work, but please
+consider migrating to the newer and more comprehensive method of
+updating profile attributes.</p>
+<a name="nbsp"></a>
+<h3>&nbsp;</h3>
+<a name="updatedeliverydevice"></a>
+<h3>update_delivery_device</h3>
+<p>Sets which device Twitter delivers updates to for the authenticating user.&nbsp; Sending <span style="font-family: courier new,monospace;">none</span> as the <span style="font-family: courier new,monospace;">device</span> parameter will disable IM or SMS updates.</p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>URL:</b> <font face="courier new,monospace">http://twitter.com/account/update_delivery_device.<i>format</i></font></font></font></font></font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>Formats:</b> xml, json</font></font></font></font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>Method(s):</b> POST</font></font></font></font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>Parameters:</b></font></font></font></font></p>
+<ul>
+<li><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace">device.<font face="arial,sans-serif">&nbsp; Required.&nbsp; Must be one of: <span style="font-family: courier new,monospace;">sms</span>, <span style="font-family: courier new,monospace;">im</span>, <span style="font-family: courier new,monospace;">none</span>.&nbsp; Ex:</font></font></font></font></font></font> <font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace">http://twitter.com/account/update_delivery_device.xml?device=im</font></font></font></font></font></li>
+</ul>
+<p><strong>Returns:</strong> <a href="#Basicuserinformationelement">basic user information element</a></p>
+<a name="nbsp"></a>
+<h3>&nbsp;</h3>
+<a name="updateprofilecolors"></a>
+<h3>update_profile_colors</h3>
+<p>Sets one or more hex values that control the color scheme of the
+authenticating user's profile page on twitter.com. &nbsp;These values
+are also returned in the /users/show API method.</p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>URL:</b>&nbsp;<font face="courier new,monospace">http://twitter.com/account/update_profile_colors.<i>format</i></font></font></font></font></font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>Formats:</b>&nbsp;xml, json</font></font></font></font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>Method(s):</b>&nbsp;POST</font></font></font></font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>Parameters:</b>
+one or more of the following parameters must be present. &nbsp;Each
+parameter's value must be a valid hexidecimal value, and may be either
+three or six characters (ex: #fff or #ffffff).</font></font></font></font></p>
+<ul style="border-width: 0px; margin: 0px 0px 0px 3em; padding: 0px; font-weight: inherit; font-style: inherit; font-size: 100%; font-family: inherit; vertical-align: baseline;">
+<li style="border-width: 0px; margin: 0px; padding: 0px; font-weight: inherit; font-style: inherit; font-size: 100%; font-family: inherit; vertical-align: baseline;"><span style="font-family: 'Courier New';">profile_background_color</span>.<font face="arial,sans-serif">&nbsp;&nbsp;Optional.</font></li>
+<li style="border-width: 0px; margin: 0px; padding: 0px; font-weight: inherit; font-style: inherit; font-size: 100%; font-family: inherit; vertical-align: baseline;"><span style="font-family: 'Courier New';">profile_text_color</span>.<font face="arial,sans-serif">&nbsp;&nbsp;Optional.</font></li>
+<li style="border-width: 0px; margin: 0px; padding: 0px; font-weight: inherit; font-style: inherit; font-size: 100%; font-family: inherit; vertical-align: baseline;"><span style="font-family: 'Courier New';">profile_link_color</span>.<font face="arial,sans-serif">&nbsp;&nbsp;Optional.</font></li>
+<li style="border-width: 0px; margin: 0px; padding: 0px; font-weight: inherit; font-style: inherit; font-size: 100%; font-family: inherit; vertical-align: baseline;"><span style="font-family: 'Courier New';">profile_sidebar_fill_color</span>.<font face="arial,sans-serif">&nbsp;&nbsp;Optional.</font></li>
+<li style="border-width: 0px; margin: 0px; padding: 0px; font-weight: inherit; font-style: inherit; font-size: 100%; font-family: inherit; vertical-align: baseline;"><span style="font-family: 'Courier New';">profile_sidebar_border_color</span>.<font face="arial,sans-serif">&nbsp;&nbsp;Optional.</font></li>
+</ul>
+<p><strong>Returns:</strong> <a href="#Extendeduserinformationelement">extended user information element</a></p>
+<a name="nbsp"></a>
+<h3>&nbsp;</h3>
+<a name="updateprofileimage"></a>
+<h3>update_profile_image</h3>
+<p>Updates the authenticating user's profile image. &nbsp;Expects raw multipart data, not a URL&nbsp;to an image.</p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>URL:</b>&nbsp;<font face="courier new,monospace">http://twitter.com/account/update_profile_image.<i>format</i></font></font></font></font></font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>Formats:</b>&nbsp;xml, json</font></font></font></font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>Method(s):</b>&nbsp;POST</font></font></font></font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>Parameters:</b></font></font></font></font></p>
+<ul style="border-width: 0px; margin: 0px 0px 0px 3em; padding: 0px; font-weight: inherit; font-style: inherit; font-size: 100%; font-family: inherit; vertical-align: baseline;">
+<li style="border-width: 0px; margin: 0px; padding: 0px; font-weight: inherit; font-style: inherit; font-size: 100%; font-family: inherit; vertical-align: baseline;"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace">image.<font face="arial,sans-serif">&nbsp;
+Required. &nbsp;Must be a valid GIF, JPG, or PNG image of less than 700
+kilobytes in size. &nbsp;Images with width larger than 500 pixels will
+be scaled down.</font></font></font></font></font></font>&nbsp;</li>
+</ul>
+<p><strong>Returns:</strong> <a href="#Extendeduserinformationelement">extended user information element</a></p>
+<p>&nbsp;</p>
+<a name="updateprofilebackgroundimage"></a>
+<h3>update_profile_background_image</h3>
+<p>Updates the authenticating user's profile background image. &nbsp;Expects raw multipart data, not a URL&nbsp;to an image.</p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>URL:</b>&nbsp;<font face="courier new,monospace">http://twitter.com/account/update_profile_background_image.<i>format</i></font></font></font></font></font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>Formats:</b>&nbsp;xml, json</font></font></font></font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>Method(s):</b>&nbsp;POST</font></font></font></font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>Parameters:</b></font></font></font></font></p>
+<ul style="border-width: 0px; margin: 0px 0px 0px 3em; padding: 0px; font-weight: inherit; font-style: inherit; font-size: 100%; font-family: inherit; vertical-align: baseline;">
+<li style="border-width: 0px; margin: 0px; padding: 0px; font-weight: inherit; font-style: inherit; font-size: 100%; font-family: inherit; vertical-align: baseline;"><span style="font-family: 'Courier New';">image</span>.<font face="arial,sans-serif">&nbsp;
+Required. &nbsp;Must be a valid GIF, JPG, or PNG image of less than 800
+kilobytes in size. &nbsp;Images with width larger than 2048 pixels will
+be scaled down.</font></li>
+</ul>
+<p><strong>Returns:</strong> <a href="#Extendeduserinformationelement">extended user information element</a></p>
+<p>&nbsp;</p>
+<a name="ratelimitstatus"></a>
+<h3>rate_limit_status</h3>
+<p>Returns the remaining number of API requests available to the
+requesting user before the API limit is reached for the current hour.
+Calls to rate_limit_status do not count against the rate limit.
+&nbsp;If authentication credentials are provided, the rate limit status
+for the authenticating user is returned. &nbsp;Otherwise, the rate
+limit status for the requester's IP address is returned.</p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>URL:</b> <font face="courier new,monospace">http://twitter.com/account/rate_limit_status.<i>format</i></font></font></font></font></font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>Formats:</b> xml, json</font></font></font></font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>Method(s):</b> GET</font></font></font></font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>Parameters</b>: none&nbsp;</font></font></font></font></p>
+<p>&nbsp;</p>
+<a name="updateprofile"></a>
+<h3>update_profile</h3>
+<p>Sets values that users are able to set under the "Account" tab of
+their settings page. Only the parameters specified will be updated; to
+only update the "name" attribute, for example, only include that
+parameter in your request.</p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>URL:</b>&nbsp;<font face="courier new,monospace">http://twitter.com/account/update_profile.<i>format</i></font></font></font></font></font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>Formats:</b>&nbsp;xml, json</font></font></font></font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>Method(s):</b>&nbsp;POST</font></font></font></font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>Parameters:</b>&nbsp;one
+or more of the following parameters must be present. &nbsp;Each
+parameter's value should be a string. &nbsp;See the individual
+parameter descriptions below for further constraints.</font></font></font></font></p>
+<ul>
+<li style="border-width: 0px; margin: 0px; padding: 0px; font-weight: inherit; font-style: inherit; font-size: 100%; font-family: inherit; vertical-align: baseline; text-align: left;"><span style="font-family: 'Courier New';">name</span>.<font face="arial,sans-serif">&nbsp;&nbsp;Optional. Maximum of 20 characters.</font></li>
+<li style="border-width: 0px; margin: 0px; padding: 0px; font-weight: inherit; font-style: inherit; font-size: 100%; font-family: inherit; vertical-align: baseline;"><span style="font-family: 'Courier New';">email</span>.<font face="arial,sans-serif">&nbsp;&nbsp;Optional. Maximum of 40 characters. Must be a valid email address.</font></li>
+<li style="border-width: 0px; margin: 0px; padding: 0px; font-weight: inherit; font-style: inherit; font-size: 100%; font-family: inherit; vertical-align: baseline;"><span style="font-family: 'Courier New';">url</span>.<font face="arial,sans-serif">&nbsp;&nbsp;Optional. Maximum of 100 characters. Will be prepended with "http://" if not present.</font></li>
+<li style="border-width: 0px; margin: 0px; padding: 0px; font-weight: inherit; font-style: inherit; font-size: 100%; font-family: inherit; vertical-align: baseline;"><span style="font-family: 'Courier New';">location</span>.<font face="arial,sans-serif">&nbsp;&nbsp;Optional. Maximum of 30 characters. The contents are not normalized or geocoded in any way.</font></li>
+<li style="border-width: 0px; margin: 0px; padding: 0px; font-weight: inherit; font-style: inherit; font-size: 100%; font-family: inherit; vertical-align: baseline;"><span style="font-family: 'Courier New';">description</span>.<font face="arial,sans-serif">&nbsp;&nbsp;Optional. Maximum of 160 characters.</font></li>
+</ul>
+<p><strong>Returns:</strong> <a href="#Extendeduserinformationelement">extended user information element</a></p>
+<a name="nbsp"></a>
+<h2>&nbsp;</h2>
+<a name="FavoriteMethods"></a>
+<h2>Favorite Methods</h2>
+<a name="favorites"></a>
+<h3>favorites</h3>
+<p>Returns the 20 most recent favorite statuses for the authenticating
+user or user specified by the ID parameter in the requested
+format.&nbsp;</p>
+<p><b>URL:</b> <font face="courier new,monospace">http://twitter.com/favorites.<i>format</i></font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><b>Formats:</b> xml, json, rss, atom</font></font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>Method(s):</b> GET</font></font></font></font></p>
+<p><b>Parameters:</b></p>
+<ul>
+<li><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace">id</font>.&nbsp; Optional.&nbsp; The ID or screen name of the user for whom to request a list of favorite statuses.&nbsp; Ex: <font face="courier new,monospace">http://twitter.com/favorites/bob.json</font> or <font face="courier new,monospace">http://twitter.com/favorites/bob.rss</font></font></font></font></font></li>
+<li><font face="courier new,monospace">page</font>.&nbsp; Optional. Retrieves the 20 next most recent favorite statuses.&nbsp; Ex: <font face="courier new,monospace">http://twitter.com/favorites.xml?page=3</font>&nbsp;</li>
+</ul>
+<p><strong><font face="courier new,monospace"><font face="arial,sans-serif">Returns:</font></font></strong> <font face="courier new,monospace"><font face="arial,sans-serif">list of <a href="#Statuselement">status elements</a></font></font></p>
+<a name="nbsp"></a>
+<h3>&nbsp;</h3>
+<a name="create"></a>
+<h3>create</h3>
+<p>Favorites the status specified in the ID parameter as the
+authenticating user.&nbsp; Returns the favorite status when successful.</p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>URL:</b> <font face="courier new,monospace">http://twitter.com/favorites/create/<i>id</i>.<i>format</i></font></font></font></font></font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>Formats:</b> xml, json</font></font></font></font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>Method(s):</b> POST</font></font></font></font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>Parameters:</b></font></font></font></font></p>
+<ul>
+<li><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace">id</font>.&nbsp; Required.&nbsp; The ID of the status to favorite.&nbsp; Ex: <font face="courier new,monospace">http://twitter.com/favorites/create/12345.json</font> or <font face="courier new,monospace">http://twitter.com/favorites/create/45567.xml</font></font></font></font></font></li>
+</ul>
+<p><strong><font face="courier new,monospace"><font face="arial,sans-serif">Returns:</font></font></strong> <a href="#Statuselement"><font face="courier new,monospace"><font face="arial,sans-serif">status element</font></font></a></p>
+<a name="nbsp"></a>
+<h3>&nbsp;</h3>
+<a name="destroy"></a>
+<h3>destroy</h3>
+<p>Un-favorites the status specified in the ID parameter as the
+authenticating user.&nbsp; Returns the un-favorited status in the
+requested format when successful.&nbsp;&nbsp;</p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>URL:</b> <font face="courier new,monospace">http://twitter.com/favorites/destroy/<i>id</i>.<i>format</i></font></font></font></font></font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>Formats:</b> xml, json</font></font></font></font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>Method(s):</b> POST, DELETE</font></font></font></font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>Parameters:</b></font></font></font></font></p>
+<ul>
+<li><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace">id</font>.&nbsp; Required.&nbsp; The ID of the status to un-favorite.&nbsp; Ex: <font face="courier new,monospace">http://twitter.com/favorites/destroy/12345.json</font> or <font face="courier new,monospace">http://twitter.com/favorites/destroy/23456.xml&nbsp;</font></font></font></font></font></li>
+</ul>
+<p><strong><font face="courier new,monospace"><font face="arial,sans-serif">Returns:</font></font></strong> <a href="#Statuselement"><font face="courier new,monospace"><font face="arial,sans-serif">status element</font></font></a></p>
+<a name="nbsp"></a>
+<h2>&nbsp;</h2>
+<a name="NotificationMethods"></a>
+<h2>Notification Methods</h2>
+<a name="follow"></a>
+<h3>follow</h3>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif">Enables
+notifications for updates from the specified user to the authenticating
+user.&nbsp; Returns the specified user when successful.</font></font></font></font></font></font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>URL:</b><font face="courier new,monospace">http://twitter.com/notifications/follow/<i>id</i>.<i>format</i></font></font></font></font></font></font></font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>Formats:</b> xml, json</font></font></font></font></font></font></font></font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>Method(s):</b> POST</font></font></font></font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>Parameters:&nbsp;</b></font></font></font></font></font></font></font></font></p>
+<ul>
+<li><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace">id.<font face="arial,sans-serif">&nbsp; Required.&nbsp; The ID or screen name of the user to follow.&nbsp; Ex:</font></font></font></font></font></font></font></font></font></font> <font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace">http://twitter.com/notifications/follow/12345.xml <font face="arial,sans-serif">or</font></font></font></font></font></font></font></font> <font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace">http://twitter.com/notifications/follow/bob.json</font></font></font></font></font></font></font></li>
+</ul>
+<p><strong>Returns:</strong> <a href="#Basicuserinformationelement">basic user information element</a></p>
+<p>&nbsp;</p>
+<a name="leave"></a>
+<h3>leave</h3>
+<p>Disables notifications for updates from the specified user to the
+authenticating user.&nbsp; Returns the specified user when successful.</p>
+<p><b>URL:</b> <font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace">http://twitter.com/notifications/leave/<i>id</i>.<i>format</i></font></font></font></font></font></font></font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>Formats:</b> xml, json</font></font></font></font></font></font></font></font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>Method(s):</b> POST</font></font></font></font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>Parameters:</b>&nbsp;</font></font></font></font></font></font></font></font></p>
+<ul>
+<li><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace">id.<font face="arial,sans-serif">&nbsp; Required.&nbsp; The ID or screen name of the user to leave.&nbsp; Ex:&nbsp;</font></font></font></font></font></font></font></font></font></font> <font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace">http://twitter.com/notifications/leave/12345.xml <font face="arial,sans-serif">or</font></font></font></font></font></font></font></font> <font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace">http://twitter.com/notifications/leave/bob.json</font></font></font></font></font></font></font></li>
+</ul>
+<p><strong>Returns:</strong> <a href="#Basicuserinformationelement">basic user information element</a></p>
+<p>&nbsp;</p>
+<p><span style="font-family: Arial;"><font size="2"><b>NOTE:</b> The <i>Notification Methods</i> require the authenticated user to already be <i>friends</i> with the specified user otherwise the error "<i>there was a problem following the specified user</i>" will be returned.</font> <font size="2">You create and manage friendships with</font></span> <a href="#FriendshipMethods" name="p-2b853ba698a782d6aa5b7ccaa5b8aecb12705e4c" class="WikiLink" id="p-2b853ba698a782d6aa5b7ccaa5b8aecb12705e4c" rel="nofollow"><span style="font-family: Arial;"><font size="2">these services</font></span></a><span style="font-family: Arial;"><font size="2">.</font></span></p>
+<p>&nbsp;</p>
+<a name="BlockMethods"></a>
+<h2>Block Methods</h2>
+<a name="create"></a>
+<h3>create</h3>
+<p>Blocks the user specified in the ID parameter as the authenticating
+user.&nbsp; Returns the blocked user in the requested format when
+successful.&nbsp; You can find out more about blocking in the <a href="http://help.twitter.com/index.php?pg=kb.page&amp;id=69" rel="nofollow">Twitter Support Knowledge Base.</a></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>URL:</b> <font face="courier new,monospace">http://twitter.com/blocks/create/<i>id</i>.<i>format</i></font></font></font></font></font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>Formats:</b> xml, json</font></font></font></font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>Method(s):</b> POST</font></font></font></font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>Parameters:</b></font></font></font></font></p>
+<ul>
+<li><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace">id</font>.&nbsp; Required.&nbsp; The ID or screen_name of the user to block.&nbsp; Ex: <font face="courier new,monospace">http://twitter.com/blocks/create/12345.json</font> or <font face="courier new,monospace">http://twitter.com/blocks/create/bob.xml</font></font></font></font></font></li>
+</ul>
+<p><strong>Returns:</strong> <a href="#Basicuserinformationelement">basic user information element</a></p>
+<a name="nbsp"></a>
+<h3>&nbsp;</h3>
+<a name="destroy"></a>
+<h3>destroy</h3>
+<p>Un-blocks the user specified in the ID parameter as the
+authenticating user.&nbsp; Returns the un-blocked user in the requested
+format when successful.&nbsp;&nbsp;</p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>URL:</b> <font face="courier new,monospace">http://twitter.com/blocks/destroy/<i>id</i>.<i>format</i></font></font></font></font></font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>Formats:</b> xml, json</font></font></font></font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>Method(s):</b> POST, DELETE</font></font></font></font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>Parameters:</b></font></font></font></font></p>
+<ul>
+<li><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace">id</font>.&nbsp; Required.&nbsp; The ID or screen_name of the user to un-block.&nbsp; Ex: <font face="courier new,monospace">http://twitter.com/blocks/destroy/12345.json</font> or <font face="courier new,monospace">http://twitter.com/blocks/destroy/bob.xml</font></font></font></font></font></li>
+</ul>
+<p><strong>Returns:</strong> <a href="#Basicuserinformationelement">basic user information element</a></p>
+<a name="nbsp"></a>
+<h2>&nbsp;</h2>
+<a name="HelpMethods"></a>
+<h2>Help Methods</h2>
+<a name="test"></a>
+<h3>test</h3>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif">Returns the string "ok" in the requested format with a 200 OK HTTP status code.</font></font></font></font></font></font></font></font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>&nbsp;</b></font></font></font></font></font></font></font></font><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>URL:</b> <font face="courier new,monospace">http://twitter.com/help/test.<i>format</i></font></font></font></font></font></font></font></font></font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><b><font face="arial,sans-serif">Formats:</font></b> <font face="arial,sans-serif">xml, json</font></font></font></font></font></font></font></font></font></font></p>
+<p><font face="courier new,monospace"><font face="arial,sans-serif"><font face="courier new,monospace"><font face="arial,sans-serif"><b>Method(s):</b> GET</font></font></font></font></p>
+<p>&nbsp;</p>
+<a name="ReturnElements"></a>
+<h2>Return Elements</h2>
+<p>Almost all API calls return well-formed elements of data. The element or list of elements are comprised of <a href="#ReturnValues">return values</a>.&nbsp;</p>
+<p>&nbsp;</p>
+<a name="Statuselement"></a>
+<h3>Status element</h3>
+<p>A status element consists of information on a status, with a nested <em>&lt;user&gt;</em> element to describe the author.&nbsp;</p>
+<p><em>&lt;status&gt;</em></p>
+<p style="margin-left: 40px;">created_at</p>
+<p style="margin-left: 40px;">id</p>
+<p style="margin-left: 40px;">text</p>
+<p style="margin-left: 40px;">source</p>
+<p style="margin-left: 40px;">truncated</p>
+<p style="margin-left: 40px;">in_reply_to_status_id</p>
+<p style="margin-left: 40px;">in_reply_to_user_id</p>
+<p style="margin-left: 40px;">favorited</p>
+<p style="margin-left: 40px;"><em>&lt;user&gt;</em></p>
+<p style="margin-left: 80px;">id</p>
+<p style="margin-left: 80px;">name</p>
+<p style="margin-left: 80px;">screen_name</p>
+<p style="margin-left: 80px;">description</p>
+<p style="margin-left: 80px;">location</p>
+<p style="margin-left: 80px;">profile_image_url</p>
+<p style="margin-left: 80px;">url</p>
+<p style="margin-left: 80px;">protected</p>
+<p style="margin-left: 80px;">followers_count&nbsp;</p>
+<p>&nbsp;</p>
+<a name="Basicuserinformationelement"></a>
+<h3>Basic user information element</h3>
+<p>Basic user information elements contain primary user information with nested a <em>&lt;status&gt;</em> element to describe the user's most current update.&nbsp;</p>
+<p><em>&lt;user&gt;</em></p>
+<p style="margin-left: 40px;">id</p>
+<p style="margin-left: 40px;">name</p>
+<p style="margin-left: 40px;">screen_name</p>
+<p style="margin-left: 40px;">location</p>
+<p style="margin-left: 40px;">description</p>
+<p style="margin-left: 40px;">profile_image_url</p>
+<p style="margin-left: 40px;">url</p>
+<p style="margin-left: 40px;">protected</p>
+<p style="margin-left: 40px;">followers_count</p>
+<p style="margin-left: 40px;"><em>&lt;status&gt;</em></p>
+<p style="margin-left: 80px;">created_at</p>
+<p style="margin-left: 80px;">id</p>
+<p style="margin-left: 80px;">text</p>
+<p style="margin-left: 80px;">source</p>
+<p style="margin-left: 80px;">truncated</p>
+<p style="margin-left: 80px;">in_reply_to_status_id</p>
+<p style="margin-left: 80px;">in_reply_to_user_id</p>
+<p style="margin-left: 80px;">favorited</p>
+<p style="margin-left: 80px;">in_reply_to_screen_name&nbsp;&nbsp;</p>
+<p>&nbsp;</p>
+<a name="Extendeduserinformationelement"></a>
+<h3>Extended user information element</h3>
+<p>Extended user information elements contain detailed user-specified information about a user's profile.&nbsp;</p>
+<p><em>&lt;user&gt;</em></p>
+<p style="margin-left: 40px;">id</p>
+<p style="margin-left: 40px;">name</p>
+<p style="margin-left: 40px;">screen_name</p>
+<p style="margin-left: 40px;">location</p>
+<p style="margin-left: 40px;">description</p>
+<p style="margin-left: 40px;">profile_image_url</p>
+<p style="margin-left: 40px;">url</p>
+<p style="margin-left: 40px;">protected</p>
+<p style="margin-left: 40px;">followers_count</p>
+<p style="margin-left: 40px;">profile_background_color</p>
+<p style="margin-left: 40px;">profile_text_color</p>
+<p style="margin-left: 40px;">profile_link_color</p>
+<p style="margin-left: 40px;">profile_sidebar_fill_color</p>
+<p style="margin-left: 40px;">profile_sidebar_border_color</p>
+<p style="margin-left: 40px;">friends_count</p>
+<p style="margin-left: 40px;">created_at</p>
+<p style="margin-left: 40px;">favourites_count</p>
+<p style="margin-left: 40px;">utc_offset</p>
+<p style="margin-left: 40px;">time_zone</p>
+<p style="margin-left: 40px;">profile_background_image_url</p>
+<p style="margin-left: 40px;">profile_background_tile</p>
+<p style="margin-left: 40px;">following</p>
+<p style="margin-left: 40px;">notifications</p>
+<p style="margin-left: 40px;">statuses_count&nbsp;</p>
+<p>&nbsp;</p>
+<a name="Directmessageelement"></a>
+<h3>Direct message element</h3>
+<p>DIrect message elements contain a set of values that describe a message, as well as nested <em>&lt;sender&gt;</em> and <em>&lt;recipient&gt;</em> nodes.&nbsp;</p>
+<p><em>&lt;direct_message&gt;</em></p>
+<p style="margin-left: 40px;">id</p>
+<p style="margin-left: 40px;">sender_id</p>
+<p style="margin-left: 40px;">text</p>
+<p style="margin-left: 40px;">recipient_id</p>
+<p style="margin-left: 40px;">created_at</p>
+<p style="margin-left: 40px;">sender_screen_name</p>
+<p style="margin-left: 40px;">recipient_screen_name</p>
+<p style="margin-left: 40px;"><em>&lt;sender&gt;</em></p>
+<p style="margin-left: 80px;">&nbsp;&nbsp;&nbsp; id</p>
+<p style="margin-left: 80px;">&nbsp;&nbsp;&nbsp; name</p>
+<p style="margin-left: 80px;">&nbsp;&nbsp;&nbsp; screen_name</p>
+<p style="margin-left: 80px;">&nbsp;&nbsp;&nbsp; location</p>
+<p style="margin-left: 80px;">&nbsp;&nbsp;&nbsp; description</p>
+<p style="margin-left: 80px;">&nbsp;&nbsp;&nbsp; profile_image_url</p>
+<p style="margin-left: 80px;">&nbsp;&nbsp;&nbsp; url</p>
+<p style="margin-left: 80px;">&nbsp;&nbsp;&nbsp; protected</p>
+<p style="margin-left: 80px;">&nbsp;&nbsp;&nbsp; followers_count</p>
+<p style="margin-left: 40px;"><em>&lt;recipient&gt;</em></p>
+<p style="margin-left: 80px;">&nbsp;&nbsp;&nbsp; id</p>
+<p style="margin-left: 80px;">&nbsp;&nbsp;&nbsp; name</p>
+<p style="margin-left: 80px;">&nbsp;&nbsp;&nbsp; screen_name</p>
+<p style="margin-left: 80px;">&nbsp;&nbsp;&nbsp; location</p>
+<p style="margin-left: 80px;">&nbsp;&nbsp;&nbsp; description</p>
+<p style="margin-left: 80px;">&nbsp;&nbsp;&nbsp; profile_image_url</p>
+<p style="margin-left: 80px;">&nbsp;&nbsp;&nbsp; url</p>
+<p style="margin-left: 80px;">&nbsp;&nbsp;&nbsp; protected</p>
+<p style="margin-left: 80px;">&nbsp;&nbsp;&nbsp; followers_count&nbsp;</p>
+<p>&nbsp;</p>
+<a name="ReturnValues"></a>
+<h2>Return Values</h2>
+<p>API&nbsp;methods return elements of data. These <a href="#ReturnElements">elements contain a known set</a> of value fields from the following index.</p>
+<a name="nbsp"></a>
+<h3>&nbsp;</h3>
+<a name="createdat"></a>
+<h3>created_at</h3>
+<p><strong>Description:</strong> timestamp of element creation, either status or user</p>
+<p><strong>Example:</strong> Sat Jan 24 22:14:29 +0000 2009</p>
+<p>&nbsp;</p>
+<a name="description"></a>
+<h3>description</h3>
+<p><strong>Description:</strong> 160 characters or less of text that describes a user</p>
+<p><strong>Examples:</strong> <em>empty</em> (Default), I like new shiny things.</p>
+<p>&nbsp;</p>
+<a name="favorited"></a>
+<h3>favorited</h3>
+<p><strong>Description:</strong> boolean indicating if a status has been marked as a favorite</p>
+<p><strong>Examples:</strong> true, false</p>
+<p>&nbsp;</p>
+<a name="favoritescount"></a>
+<h3>favorites_count</h3>
+<p><strong>Description:</strong> number of statuses a user has marked as favorite</p>
+<p><strong>Examples:</strong> 0, 451</p>
+<p>&nbsp;</p>
+<a name="following"></a>
+<h3>following</h3>
+<p><strong>Description:</strong> boolean indicating if a user is following a given user</p>
+<p><strong>Examples:</strong> true, false&nbsp;</p>
+<p>&nbsp;</p>
+<a name="followerscount"></a>
+<h3>followers_count</h3>
+<p><strong>Description:</strong> number of users following a user's updates</p>
+<p><strong>Examples:</strong> 0, 4034</p>
+<p>&nbsp;</p>
+<a name="friendscount"></a>
+<h3>friends_count</h3>
+<p><strong>Description:</strong> number of users a user is following</p>
+<p><strong>Examples:</strong> 0, 221&nbsp;</p>
+<p>&nbsp;</p>
+<a name="name"></a>
+<h3>name</h3>
+<p><strong>Description:</strong> full name of a registered user</p>
+<p><strong>Examples:</strong> Tweety Bird, John Doe</p>
+<p>&nbsp;</p>
+<a name="hourlylimit"></a>
+<h3>hourly_limit</h3>
+<p><strong>Description:</strong> maximum number of API calls a user is allowed in an hour</p>
+<p><strong>Examples:</strong> 100</p>
+<p>&nbsp;</p>
+<a name="id"></a>
+<h3>id</h3>
+<p><strong>Description:</strong> a permanent unique id referencing an object, such as user or status</p>
+<p><strong>Examples:</strong> 1145445329 <em>(status),</em> 14198354 <em>(user)</em></p>
+<p>&nbsp;</p>
+<a name="inreplytoscreenname"></a>
+<h3>in_reply_to_screen_name</h3>
+<p><strong>Description:</strong> display name for the user that wrote the status a status replies to (see screen_name)</p>
+<p><strong>Examples:</strong> <em>empty</em>, tweetybird</p>
+<p>&nbsp;</p>
+<a name="inreplytostatusid"></a>
+<h3>in_reply_to_status_id</h3>
+<p><strong>Description:</strong> unique id for the status a status replies to (see id)</p>
+<p><strong>Examples:</strong> <em>empty</em>, 1047468972</p>
+<p>&nbsp;</p>
+<a name="inreplytouserid"></a>
+<h3>in_reply_to_user_id</h3>
+<p><strong>Description:</strong> unique id for the user that wrote the status a status replies to (see id)</p>
+<p><strong>Examples:</strong> <em>empty</em>, 14597523</p>
+<p>&nbsp;</p>
+<a name="location"></a>
+<h3>location</h3>
+<p><strong>Description:</strong> user specified string representing where they are from</p>
+<p><strong>Examples:</strong> <em>empty</em> (Default), California OR New York, NY, In The Woods, 27.893621,-82.243706</p>
+<p>&nbsp;</p>
+<a name="notifications"></a>
+<h3>notifications</h3>
+<p><strong>Description:</strong> boolean indicating if a user is receiving device updates for a given user</p>
+<p><strong>Examples:</strong> true, false</p>
+<p>&nbsp;</p>
+<a name="profilebackgroundcolor"></a>
+<h3>profile_background_color</h3>
+<p><strong>Description:</strong> hex RGB value for a user's background color</p>
+<p><strong>Example:</strong> 9ae4e8 (Default)</p>
+<p>&nbsp;</p>
+<a name="profilebackgroundimageurl"></a>
+<h3>profile_background_image_url</h3>
+<p><strong>Description:</strong> location of a user's background image</p>
+<p><strong>Examples:</strong> <em>empty</em>, <a href="http://static.twitter.com/images/themes/theme1/bg.gif">http://static.twitter.com/images/themes/theme1/bg.gif</a> (Default), <a href="http://s3.amazonaws.com/twitter_production/profile_background_images/2752608/super_sweet.jpg">http://s3.amazonaws.com/twitter_production/profile_background_images/2752608/super_sweet.jpg</a></p>
+<a name="nbsp"></a>
+<h3>&nbsp;</h3>
+<a name="profilebackgroundtile"></a>
+<h3>profile_background_tile</h3>
+<p><strong>Description:</strong> boolean indicating if a user's background is tiled</p>
+<p><strong>Examples:</strong> true, false</p>
+<p>&nbsp;</p>
+<a name="profileimageurl"></a>
+<h3>profile_image_url</h3>
+<p><strong>Description:</strong> location to a user's avatar file</p>
+<p><strong>Examples:</strong>&nbsp; <a href="http://static.twitter.com/images/default_profile_normal.png">http://static.twitter.com/images/default_profile_normal.png</a> (Default), <a href="http://s3.amazonaws.com/twitter_production/profile_images/14198354/sweet_avatar.jpg">http://s3.amazonaws.com/twitter_production/profile_images/14198354/sweet_avatar.jpg</a></p>
+<p>&nbsp;</p>
+<a name="profilelinkcolor"></a>
+<h3>profile_link_color</h3>
+<p><strong>Description:</strong> hex RGB value for a user's link color</p>
+<p><strong>Example:</strong> 0000ff (Default)</p>
+<p>&nbsp;</p>
+<a name="profilesidebarbordercolor"></a>
+<h3>profile_sidebar_border_color</h3>
+<p><strong>Description:</strong> hex RGB value for a user's border color&nbsp;&nbsp;&nbsp;</p>
+<p><strong>Example:</strong> 87bc44 (Default)</p>
+<p>&nbsp;</p>
+<a name="profilesidebarfillcolor"></a>
+<h3>profile_sidebar_fill_color</h3>
+<p><strong>Description:</strong> hex RGB value for a user's sidebar color</p>
+<p><strong>Example:</strong> e0ff92 (Default)</p>
+<p>&nbsp;</p>
+<a name="profiletextcolor"></a>
+<h3>profile_text_color</h3>
+<p><strong>Description:</strong> hex RGB value for a user's text color</p>
+<p><strong>Example:</strong> 000000 (Default)</p>
+<p>&nbsp;</p>
+<a name="protected"></a>
+<h3>protected</h3>
+<p><strong>Description:</strong> boolean indicating if a user has a protected profile</p>
+<p><strong>Examples:</strong> true, false</p>
+<p>&nbsp;</p>
+<a name="recipientid"></a>
+<h3>recipient_id</h3>
+<p><strong>Description:</strong> unique id of the user that received a direct message (see id)</p>
+<p><strong>Example:</strong> 1401881</p>
+<p>&nbsp;</p>
+<a name="recipientscreenname"></a>
+<h3>recipient_screen_name</h3>
+<p><strong>Description:</strong> display name of the user that sent a direct message (see screen_name)</p>
+<p><strong>Examples:</strong> tweetybird, johnd</p>
+<p>&nbsp;</p>
+<a name="remaininghits"></a>
+<h3>remaining_hits</h3>
+<p><strong>Description:</strong> number of API calls remaining for a user</p>
+<p><strong>Examples:</strong> 0, 43</p>
+<p>&nbsp;</p>
+<a name="resettime"></a>
+<h3>reset_time</h3>
+<p><strong>Description:</strong> time when a user's API call allocation resets</p>
+<p><strong>Example:</strong> Sun Jan 25 01:20:43 +0000 2009</p>
+<p>&nbsp;</p>
+<a name="resettimeinseconds"></a>
+<h3>reset_time_in_seconds</h3>
+<p><strong>Description:</strong> <a href="http://en.wikipedia.org/wiki/Unix_time" target="_blank">Unix time</a> when a user's API call allocation resets</p>
+<p><strong>Example:</strong> 1232846443</p>
+<p>&nbsp;</p>
+<a name="screenname"></a>
+<h3><strong>screen_name</strong></h3>
+<p><strong>Description:</strong> display name for a user</p>
+<p><strong>Examples:</strong> tweetybird, johnd</p>
+<p>&nbsp;</p>
+<a name="senderid"></a>
+<h3>sender_id</h3>
+<p><strong>Description:</strong> unique id of the user that sent a direct message (see id)</p>
+<p><strong>Example:</strong> 6633812</p>
+<a name="nbsp"></a>
+<h3>&nbsp;</h3>
+<a name="senderscreenname"></a>
+<h3>sender_screen_name</h3>
+<p><strong>Description:</strong> display name of the user that sent a direct message (see screen_name)</p>
+<p><strong>Examples:</strong> tweetybird, johnd</p>
+<p>&nbsp;</p>
+<a name="source"></a>
+<h3>source</h3>
+<p><strong>Description:</strong> application that sent a status</p>
+<p><strong>Examples:</strong> web</p>
+<p>&nbsp;</p>
+<a name="statusescount"></a>
+<h3>statuses_count</h3>
+<p><strong>Description:</strong> the total number of status updates performed by a user, excluding direct messages sent</p>
+<p><strong>Examples:</strong> 0, 9423</p>
+<a name="nbsp"></a>
+<h3>&nbsp;</h3>
+<a name="text"></a>
+<h3>text</h3>
+<p><strong>Description:</strong> escaped and HTML encoded status body</p>
+<p><strong>Examples:</strong> I am eating oatmeal, The first tag is always &lt;html&gt;</p>
+<p>&nbsp;</p>
+<a name="timezone"></a>
+<h3>time_zone</h3>
+<p><strong>Description:</strong> a user's time zone</p>
+<p><strong>Examples:</strong> Central Time (US &amp; Canada) (Default), Sydney</p>
+<a name="nbsp"></a>
+<h3>&nbsp;</h3>
+<a name="truncated"></a>
+<h3>truncated</h3>
+<p><strong>Description:</strong> boolean indicating if a status required shortening</p>
+<p><strong>Examples:</strong> true, false</p>
+<a name="nbsp"></a>
+<h3>&nbsp;</h3>
+<a name="url"></a>
+<h3>url</h3>
+<p><strong>Description:</strong> user's homepage</p>
+<p><strong>Examples:</strong> <em>empty</em>, <a href="http://downforeveryoneorjustme.com/">http://downforeveryoneorjustme.com</a></p>
+<a name="nbsp"></a>
+<h3>&nbsp;</h3>
+<a name="utcoffset"></a>
+<h3>utc_offset</h3>
+<p><strong>Description:</strong> number of seconds between a user's registered time zone and <a href="http://en.wikipedia.org/wiki/Coordinated_Universal_Time" target="_blank">Coordinated Universal Time</a></p>
+<p><strong>Examples:</strong> -21600 (Default), 36000</p>
+<a name="nbsp"></a>
+<h3>&nbsp;</h3>
+<a name="GettingHelp"></a>
+<h2>Getting Help</h2>
+<p>A supplement to this document is the <a href="http://groups.google.com/group/twitter-development-talk" rel="nofollow">Twitter Development Talk</a>
+Google Group. Engineers who work on Twitter follow this group closely,
+and many third party developers are kindly participating and lending
+their expertise. It’s a great place to ask questions about the Twitter <span>API</span>.</p>
+<a name="nbsp"></a>
+<h2>&nbsp;</h2>
+<a name="Authors"></a>
+<h2>Authors</h2>
+<p>This document is maintained by <a href="http://twitter.com/al3x" rel="nofollow">Alex Payne</a>, Twitter's API Lead.&nbsp; You can reach him via email at <a href="mailto:alex@twitter.com">alex@twitter.com</a>.</p>
+<p>&nbsp;</p>
+</div>
+</div>
+</div>
+<div id="wikiedit" style="display: none;">
+<div id="editor-panel" class="box">
+<h1 title="REST API Documentation" ui:text="REST API Documentation" id="editTitle" class="pagetitle ellipses">REST API Documentation</h1>
+<table style="table-layout: fixed; width: 100%;" id="edit-panel">
+<col>
+<col style="width: 240px;">
+<tbody><tr><td>
+<form method="post" action="/REST%20API%20Documentation" id="editwikipage">
+<input name="process" value="edit_page" type="hidden">
+<div id="editframe"></div>
+</form>
+</td>
+<td>
+<div id="editor-column" style="margin-left: 12px;" class="thingbar">
+<div id="edit-tools">
+<h4>Page Tools</h4>
+<div class="editor-module">
+<div class="header">
+<h3>Insert links</h3>
+<p class="aux">Insert links to other pages or uploaded files.</p>
+</div>
+<div class="editor-module-tabs">
+<a unselectable="on" href="#" class="active" id="linkselectab-pages">Pages</a>
+<a unselectable="on" href="#" id="linkselectab-images">Images and files</a>
+</div>
+<div class="content">
+<div style="" id="thingbar-pages">
+<div style="border-bottom: 1px dotted rgb(187, 187, 187); font-size: 10px; padding-bottom: 0.5em; margin-bottom: 0.5em;"><a href="javascript:void(0);" onmousedown="insert_newlink_into_editor(); return false">Insert a link to a new page</a></div>
+<ol id="thingbarpages"><li><div align="center"><span id="thingbarLoadIcon"></span> Loading...</div></li></ol>
+
+</div>
+<div style="display: none;" id="thingbar-images">
+<div style="border-bottom: 1px dotted rgb(187, 187, 187); font-size: 10px; padding-bottom: 0.5em; margin-bottom: 0.5em;"></div>
+<ol id="thingbarfiles"> <li id="thingbar-images-noimages">No images or files uploaded yet.</li>
+</ol>
+<div style="border-top: 1px dotted rgb(187, 187, 187); font-size: 10px; padding-top: 0.5em; margin-top: 0.5em;"><a href="javascript:void(0);" onmousedown="insert_newimage_into_editor(); return false">Insert image from URL</a></div>
+</div>
+</div>
+</div>			  </div>
+<p class="aux">
+<strong>Tip:</strong> To turn text into a link, highlight the text, then click on a page or file from the list above.
+</p>
+</div>
+</td>
+</tr>
+</tbody></table> 
+</div>
+<script>
+new MiniTabSwitcher({
+'linkselectab-pages'  : 'thingbar-pages',
+'linkselectab-images' : 'thingbar-images'
+});
+</script>
+</div>
+<style> div#comments .comment { margin-bottom:5px; } .content p { margin-bottom:5px; }  </style><div id="comments" class="box nocomments">
+<div class="comments-header">
+<div class="corner4px top"><div class="right"></div><div class="left"></div></div>
+<h3>Comments (0)</h3>
+<a name="comments"></a>
+<div class="corner4px bot"><div class="right"></div><div class="left"></div></div>
+</div>
+<div style="max-height: 400px; overflow-y: scroll;"></div><p>You don't have permission to comment on this page.</p>
+</div>
+
+<div id="page-bottom-toolbar">
+<div class="content box">
+<a href="javascript:window.print()" rel="nofollow" class="iconbutton print" id="print_link">Printable version</a>
+</div>
+</div>                      </td>
+<td id="page-col-3" width="4">&nbsp;</td>
+</tr>
+</tbody></table>
+<div id="page-footer">
+<div class="header">
+<div class="rt"></div>
+<div class="lt"></div>
+</div>      
+<div class="content"><div id="footer-logo"><a href="http://pbwiki.com/?utm_campaign=wiki-link" title=""></a></div>
+<div id="footer-pbwiki">
+<p>
+<strong><a href="http://pbwiki.com/signup.wiki?utm_campaign=wiki-link">Create your own business wiki</a></strong> / <a href="http://pbwiki.com/help.wiki?wiki=twitterapi&amp;utm_campaign=wiki-link">Help</a><br>
+<a href="http://pbwiki.com/content/termsofservice?utm_campaign=wiki-link">Terms of use</a> / <a href="http://pbwiki.com/content/privacypolicy?utm_campaign=wiki-link">Privacy policy</a>
+</p>
+</div>
+<div id="footer-about">
+<p>
+<strong>About this wiki</strong><br>
+<a href="http://apiwiki.twitter.com/rss.xml">RSS 
+feed</a> /  This wiki is <strong>public</strong>
+</p>
+</div>
+</div>        <div class="footer">
+<div class="lt"></div>
+<div class="rt"></div>
+</div>
+</div>
+</div><!--- /#page -->
+</td>
+<td id="side-content">
+<div id="top-content" class="sidebox">
+<strong>Anonymous</strong>
+<a href="https://my.pbwiki.com/?p=create&amp;return=http%3A%2F%2Fapiwiki.twitter.com%2Fsession%2Fjoin%3Fp%3DREST%2BAPI%2BDocumentation">Create an account</a> or <a href="http://apiwiki.twitter.com/session/login?return_to_page=REST%20API%20Documentation">Log in</a>
+</div>
+<div id="sidebar">
+<div id="side-toolbar" class="sidebox">
+<ul id="main-tools">
+<li><a class="iconbutton usericon" href="http://apiwiki.twitter.com/session/login?return_to_page=REST%20API%20Documentation">Log in</a></li>
+<li>
+&nbsp;
+</li>
+</ul>
+<ul id="secondary-tools">
+<li><a href="http://apiwiki.twitter.com/" id="secondary-tools_frontpage">FrontPage</a></li>
+<li><a href="http://apiwiki.twitter.com/browse/#view=ViewAllPages" id="secondary-tools_allpages">Pages &amp; Files</a></li>
+<li><a href="http://pbwiki.com/help.wiki?wiki=twitterapi&amp;utm_campaign=wiki-link" id="secondary-tools_help">Help</a></li>
+</ul>
+<div id="reportlink"><a href="http://apiwiki.twitter.com/support.wiki?feedback=1&amp;wiki=twitterapi" style="">
+</a></div>
+<form method="get" action="/FindPage">
+<input style="color: rgb(153, 153, 153);" ui:placeholder="Search" class="inputtext text" name="SearchFor" id="input-search" tabindex="1" title="Search" autocomplete="off" type="text"><div style="display: none;" class="accontainer"><div id="acout"><div class="content"><div class="header"></div><ul class="ul"></ul><div class="footer"></div></div></div></div>
+<div class="accontainer"></div>
+</form>
+</div><!-- /#side-toolbar -->
+<div id="sidebarModules"><span id="module:pagesettings">
+<div id="page-side-toolbar">
+<div class="header">&nbsp;</div>
+<ul>
+<li>
+<div class="foldertools">
+<h4 class="iconbutton foldericon"><strong>In folder: <a href="http://apiwiki.twitter.com/browse/#view=ViewFolder&amp;param=Official%20resources">Official resources</a> (8)</strong></h4>
+<ol>
+<li><a href="http://apiwiki.twitter.com/Developers" class="iconbutton pageicon">Developers</a></li>
+<li><a href="http://apiwiki.twitter.com/FAQ" class="iconbutton pageicon">FAQ</a></li>
+<li><a href="http://apiwiki.twitter.com/FrontPage" class="iconbutton pageicon">FrontPage</a></li>
+<li><a href="http://apiwiki.twitter.com/Libraries" class="iconbutton pageicon">Libraries</a></li>
+<li><a href="http://apiwiki.twitter.com/Migrating-to-followers-terminology" class="iconbutton pageicon">Migrating to followers terminology</a></li>
+<li><a href="http://apiwiki.twitter.com/REST-API-Changelog" class="iconbutton pageicon">REST API Changelog</a></li>
+<li><a href="http://apiwiki.twitter.com/REST-API-Documentation" class="iconbutton pageicon active">REST API Documentation</a></li>
+<li><a href="http://apiwiki.twitter.com/Search-API-Documentation" class="iconbutton pageicon">Search API Documentation</a></li>
+</ol>
+</div>
+</li>
+</ul>
+</div><!-- /#page-side-toolbar -->
+</span><div id="module__login" class="wikicontext-module sidebox" style="position: relative; z-index: 0;">
+<div class="header"><h3>Join this wiki</h3><a class="close togglemodule" href="#"></a></div>
+<div class="content">
+<div class="inner-content">
+<div class="top">
+<a href="http://apiwiki.twitter.com/session/login?edit=1&amp;return_to_page=REST%20API%20Documentation">Log in</a> to edit this wiki.
+</div>
+</div>
+</div>
+<div class="footer">�</div>
+</div><div style="position: relative;" class="wikicontext-module sidebox" id="module:sidebar">
+<div class="header"><h3>Sidebar</h3><a href="#" class="close togglemodule">&nbsp;</a></div>
+<div class="content wikistyle"><p><a href="http://apiwiki.twitter.com/FAQ">FAQ</a></p>
+<p><a name="p-f33ff3ee8af8f810f1e82d9d6a65fdade04842c2" class="WikiLink" id="p-f33ff3ee8af8f810f1e82d9d6a65fdade04842c2" href="http://apiwiki.twitter.com/REST+API+Documentation">REST API Documentation</a></p>
+<p><a id="p-4262a9d07738ff348030d1ecec435bf89e80e9d4" class="WikiLink" name="p-4262a9d07738ff348030d1ecec435bf89e80e9d4" href="http://apiwiki.twitter.com/Search+API+Documentation">Search API Documentation</a></p>
+<p><a id="p-72f67d2031e70ab09d2ae58a501ca6a0189f72eb" class="WikiLink" name="p-72f67d2031e70ab09d2ae58a501ca6a0189f72eb" style="border-style: none; border-width: 1px; margin: 0px; padding: 0px; font-weight: inherit; font-style: inherit; font-size: 100%; font-family: inherit; vertical-align: baseline; color: rgb(17, 68, 136) ! important; background-image: none;" href="http://apiwiki.twitter.com/REST%25C2%25A0API-Changelog">REST&nbsp;API Changelog</a></p>
+<p><a name="p-ba31380701ef593acc64c44b58d2a9b9ee3b9fa4" class="WikiLink" id="p-ba31380701ef593acc64c44b58d2a9b9ee3b9fa4" href="http://apiwiki.twitter.com/Libraries">Libraries</a></p>
+<p><a name="p-54d93a618fb92062816bbbac2b3045db69f1fc66" class="WikiLink" id="p-54d93a618fb92062816bbbac2b3045db69f1fc66" href="http://apiwiki.twitter.com/Tutorials">Tutorials</a></p>
+<p><a name="p-76742f5831dde64862171d9b9debecd9c4f8cefd" class="WikiLink" id="p-76742f5831dde64862171d9b9debecd9c4f8cefd" href="http://apiwiki.twitter.com/Open+source">Open source</a></p>
+</div>
+</div><div style="position: relative;" class="wikicontext-module sidebox" id="module:folders">
+<div class="header"><h3>Folders</h3><a href="#" class="close togglemodule">&nbsp;</a></div>
+<div class="content">
+<ul id="folderslist">          <li><a class="iconbutton foldericon" href="http://apiwiki.twitter.com/browse/#view=ViewFolder&amp;param=OAuth">OAuth</a></li>
+<li><a class="iconbutton foldericon" href="http://apiwiki.twitter.com/browse/#view=ViewFolder&amp;param=Official%20resources">Official resources</a></li>
+</ul>                        
+</div>
+<div class="footer">&nbsp;</div>    
+</div><div style="position: relative;" class="wikicontext-module sidebox" id="module:recentactivity">
+<div class="header"><h3>Recent wiki activity</h3><a href="#" class="close togglemodule">&nbsp;</a></div>
+<div class="content">
+<ul id="recentactivity">
+<li class="pageediticon"><a title="REST API Changelog" ui:text="REST API Changelog" class="ellipses" href="http://apiwiki.twitter.com/REST-API-Changelog">REST API Changelog</a>edited by <a href="javascript:alert('Please%20join%20this%20wiki%20to%20see%20more%20details%20about%20this%20user.');" class="user">Matt Sanford</a>
+</li><li class="pageediticon"><a title="Developers" ui:text="Developers" class="ellipses" href="http://apiwiki.twitter.com/Developers">Developers</a>edited by <a href="javascript:alert('Please%20join%20this%20wiki%20to%20see%20more%20details%20about%20this%20user.');" class="user">Doug Williams</a>
+</li><li class="pageediticon"><a title="REST API Documentation" ui:text="REST API Documentation" class="ellipses" href="http://apiwiki.twitter.com/REST-API-Documentation">REST API Documentation</a>edited by <a href="javascript:alert('Please%20join%20this%20wiki%20to%20see%20more%20details%20about%20this%20user.');" class="user">Matt Sanford</a>
+</li><li class="pageediticon"><a title="REST API Changelog" ui:text="REST API Changelog" class="ellipses" href="http://apiwiki.twitter.com/REST-API-Changelog">REST API Changelog</a>edited by <a href="javascript:alert('Please%20join%20this%20wiki%20to%20see%20more%20details%20about%20this%20user.');" class="user">Matt Sanford</a>
+</li><li class="pageediticon"><a title="FAQ" ui:text="FAQ" class="ellipses" href="http://apiwiki.twitter.com/FAQ">FAQ</a>edited by <a href="javascript:alert('Please%20join%20this%20wiki%20to%20see%20more%20details%20about%20this%20user.');" class="user">Alex Payne</a>
+</li><li class="pageediticon"><a title="FrontPage" ui:text="FrontPage" class="ellipses" href="http://apiwiki.twitter.com/FrontPage">FrontPage</a>edited by <a href="javascript:alert('Please%20join%20this%20wiki%20to%20see%20more%20details%20about%20this%20user.');" class="user">Alex Payne</a>
+</li><li class="pageediticon"><a title="Developers" ui:text="Developers" class="ellipses" href="http://apiwiki.twitter.com/Developers">Developers</a>edited by <a href="javascript:alert('Please%20join%20this%20wiki%20to%20see%20more%20details%20about%20this%20user.');" class="user">Doug Williams</a>
+</li></ul>
+<a href="http://apiwiki.twitter.com/changes/">More recent wiki activity</a>
+</div>
+<div class="footer">&nbsp;</div>
+</div></div>
+</div>
+  </td>
+</tr>
+</tbody></table>
+</div>
+<!-- Start Quantcast tag -->
+<script type="text/javascript" src="REST+API+Documentation_files/quant.js"></script>
+<script type="text/javascript">_qacct="p-16CGFkiSpdTEU";quantserve();</script>
+<noscript>
+<img src="http://pixel.quantserve.com/pixel/p-16CGFkiSpdTEU.gif" style="display: none" height="1" width="1" alt="Quantcast"/></noscript>
+<!-- End Quantcast tag -->
+<!-- v=2,utz=x,ssl=0,ua=Firefox,uid=0,sn=30.0.0,pid=4280,hn=sf30,pv=pr,pkg=p4,perm=read,crea=1219346197,mt=1235610141,sc=278,cat=biz,ng=1,i_=0.0005,l_=0.1438,mdh=35,mdm=2,kh=30,uQ=2,uq=5,cp=3,ch=12,cm=5,psR=7,ASg=7,te=0.203 --></body></html>
