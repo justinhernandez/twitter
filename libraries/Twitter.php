@@ -188,6 +188,8 @@ class Twitter_Core {
 	 * Formats: xml, json.  Returns the posted status in requested format when successful.
 	 * Method(s): POST
 	 *
+	 * NOTE: Go here to get your app recognized - http://twitter.com/help/request_source.
+	 *
 	 * 
 	 * @param   string	$status					Status text body
 	 * @param   int		$in_reply_to_status_id	Reply to status #
@@ -199,7 +201,8 @@ class Twitter_Core {
 		$status = substr(stripslashes($status), 0, 139);
 		$this->url = self::status."/update.$this->format";
 		$data = array('status' => $status, 'in_reply_to_status_id' => $in_reply_to_status_id);
-		
+		$this->add('source', $this->application);
+
 		return $this->connect(TRUE, TRUE, $data);
 	}
 
@@ -394,6 +397,7 @@ class Twitter_Core {
 		$text = substr(stripslashes($text), 0, 139);
 		$this->url = self::message."/new.$this->format";
 		$data = array('user' => $user, 'text' => $text);
+		$this->add('source', $this->application);
 
 		return $this->connect(TRUE, TRUE, $data);
 	}
