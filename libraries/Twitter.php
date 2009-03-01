@@ -19,7 +19,10 @@ class Twitter_Core {
 	// Contains the last API call
 	private $last;
 	// Http headers
-	private $headers;
+	private $headers = array();
+	// Ignore cURL error numbers, useful for destroy methods since it returns
+	// NULL and cURL will return error #26: unreadable
+	private $ignore_curl_error_numbers = array();
 
 	// Twitter method urls
 	const status		= 'http://twitter.com/statuses';
@@ -244,6 +247,8 @@ class Twitter_Core {
 	function destroy_status($id)
 	{
 		$this->url = self::status."/destroy/$id.$this->format";
+		// cURL returns NULL
+		$this->ignore_curl_error_numbers[] = 27;
 
 		//return $this->connect(TRUE, TRUE);
 		return $this->connect(TRUE, TRUE);
@@ -417,6 +422,8 @@ class Twitter_Core {
 	function destroy_message($id)
 	{
 		$this->url = self::message."/destroy/$id.$this->format";
+		// cURL returns NULL
+		$this->ignore_curl_error_numbers[] = 26;
 		
 		return $this->connect(TRUE, TRUE);
 	}
@@ -466,6 +473,8 @@ class Twitter_Core {
 	function destroy_friendship($id)
 	{
 		$this->url = self::friendship."/destroy/$id.$this->format";
+		// cURL returns NULL
+		$this->ignore_curl_error_numbers[] = 26;
 
 		return $this->connect(TRUE, TRUE);
 	}
@@ -789,6 +798,8 @@ class Twitter_Core {
 	function destroy_favorite($id)
 	{
 		$this->url = self::favorite."/destroy/$id.$this->format";
+		// cURL returns NULL
+		$this->ignore_curl_error_numbers[] = 26;
 
 		return $this->connect(TRUE, TRUE);
 	}
@@ -979,27 +990,28 @@ class Twitter_Core {
 		// add default header info
 		$this->headers[] = 'Expect:';
 
+		$curl_options = array(
+						CURLOPT_RETURNTRANSFER  => TRUE,
+						CURLOPT_URL             => $this->url
+						);
+
 		// curl init
-		$curl = curl_init();
+		$curl = new Curl($curl_options);
 		// add curl options
-		curl_setopt($curl, CURLOPT_URL, $this->url);
-		curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
-		curl_setopt($curl, CURLOPT_HTTPHEADER, $this->headers);
-		if ($login) curl_setopt($curl, CURLOPT_USERPWD, $this->login);
-		if ($post) curl_setopt($curl, CURLOPT_POST, TRUE);
-		if (is_array($post_data)) curl_setopt($curl, CURLOPT_POSTFIELDS, $post_data);
+		if (count($this->headers)>0) $curl->addOption(CURLOPT_HTTPHEADER, $this->headers);
+		if ($login) $curl->addOption(CURLOPT_USERPWD, $this->login);
+		if ($post) $curl->addOption(CURLOPT_POST, TRUE);
+		if (is_array($post_data)) $curl->addOption(CURLOPT_POSTFIELDS, $post_data);
 		
 		// retrieve data
-		$data = curl_exec($curl);
+		$data = $curl->execute($this->ignore_curl_error_numbers);
 		// set curl http status
-		$this->status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+		$this->status = $curl->status();
 		// set last call
 		$this->last = $this->url;
 		// clear settings
 		$this->url = '';
 		$this->headers = '';
-		// close curl
-		curl_close($curl);
 
 		// debug output
 		if (!IN_PRODUCTION AND Kohana::config('twitter.debug')) $this->debugo($data, $post_data);
@@ -1031,7 +1043,21 @@ class Twitter_Core {
 			}
 		}
 		print '<h3>Format:</h3>'.$this->format;
-		print '<h3>Response Data:</h3>'.$data;
+		print '<h3>Response Data:</h3>';
+
+		// print data
+		if ($this->format == 'json')
+		{
+			print Kohana::debug(json_decode($data));
+		}
+		else if ($this->format == 'xml')
+		{
+			print nl2br(htmlentities($data));
+		}
+		else
+		{
+			print $data;
+		}
 
 		// call Profiler
 		new Profiler;
