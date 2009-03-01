@@ -27,15 +27,15 @@ class Twitter_Core {
 	private $ignore_curl_error_numbers = array();
 
 	// Twitter method urls
-	const status		= 'http://twitter.com/statuses';
-	const user			= 'http://twitter.com/users';
-	const message		= 'http://twitter.com/direct_messages';
-	const friendship	= 'http://twitter.com/friendships';
-	const account		= 'http://twitter.com/account';
-	const favorite		= 'http://twitter.com/favorites';
-	const notification	= 'http://twitter.com/notifications';
-	const block			= 'http://twitter.com/blocks';
-	const help			= 'http://twitter.com/help';
+	const STATUS		= 'http://twitter.com/statuses';
+	const USER			= 'http://twitter.com/users';
+	const MESSAGE		= 'http://twitter.com/direct_messages';
+	const FRIENDSHIP	= 'http://twitter.com/friendships';
+	const ACCOUNT		= 'http://twitter.com/account';
+	const FAVORITE		= 'http://twitter.com/favorites';
+	const NOTIFICATION	= 'http://twitter.com/notifications';
+	const BLOCK			= 'http://twitter.com/blocks';
+	const HELP			= 'http://twitter.com/help';
 
 	/**
 	 * Singleton instance of Twitter.
@@ -105,7 +105,7 @@ class Twitter_Core {
 	 */
 	public function public_timeline()
 	{
-		$this->url = self::status.'/public_timeline.'.$this->format;
+		$this->url = self::STATUS.'/public_timeline.'.$this->format;
 		
 		return $this->connect();
 	}
@@ -128,7 +128,7 @@ class Twitter_Core {
 	 */
 	public function friends_timeline($since = NULL, $since_id = NULL, $count = NULL, $page = NULL)
 	{
-		$this->url = self::status.'/friends_timeline.'.$this->format;
+		$this->url = self::STATUS.'/friends_timeline.'.$this->format;
 		$args = func_get_args();
 		$this->add(array('since', 'since_id', 'count', 'page'), $args);
 
@@ -155,8 +155,8 @@ class Twitter_Core {
 	function user_timeline($id = NULL, $count = 20, $since = NULL, $since_id = NULL)
 	{
 		// check for id
-		$this->url = ($id) ? self::status."/user_timeline/$id.$this->format"
-						   : self::status."/user_timeline.$this->format";
+		$this->url = ($id) ? self::STATUS."/user_timeline/$id.$this->format"
+						   : self::STATUS."/user_timeline.$this->format";
 		$args = func_get_args();
 		// shift to ignore id
 		array_shift($args);
@@ -179,7 +179,7 @@ class Twitter_Core {
 	 */
 	function show_status($id)
 	{
-		$this->url = self::status."/show/$id.$this->format";
+		$this->url = self::STATUS."/show/$id.$this->format";
 
 		return $this->connect(TRUE);
 	}
@@ -204,7 +204,7 @@ class Twitter_Core {
 	{
 		// chops status length to 140
 		$status = substr(stripslashes($status), 0, 139);
-		$this->url = self::status."/update.$this->format";
+		$this->url = self::STATUS."/update.$this->format";
 		$data = array('status' => $status, 'in_reply_to_status_id' => $in_reply_to_status_id);
 		$this->add('source', $this->application);
 
@@ -227,7 +227,7 @@ class Twitter_Core {
 	 */
 	function replies($page = NULL, $since = NULL, $since_id = NULL)
 	{
-		$this->url = self::status."/replies.$this->format";
+		$this->url = self::STATUS."/replies.$this->format";
 		$args = func_get_args();
 		$this->add(array('page', 'since', 'since_id'), $args);
 
@@ -248,7 +248,7 @@ class Twitter_Core {
 	 */
 	function destroy_status($id)
 	{
-		$this->url = self::status."/destroy/$id.$this->format";
+		$this->url = self::STATUS."/destroy/$id.$this->format";
 		// cURL returns NULL
 		$this->ignore_curl_error_numbers[] = 27;
 
@@ -277,8 +277,8 @@ class Twitter_Core {
 	 */
 	function friends($id = NULL, $page = NULL)
 	{
-		$this->url = ($id) ? self::status."/friends/$id.$this->format"
-						   : self::status."/friends.$this->format";
+		$this->url = ($id) ? self::STATUS."/friends/$id.$this->format"
+						   : self::STATUS."/friends.$this->format";
 		$this->add('page', $page);
 
 		return $this->connect(TRUE);
@@ -300,8 +300,8 @@ class Twitter_Core {
 	 */
 	function followers($id = NULL, $page = NULL)
 	{
-		$this->url = ($id) ? self::status."/followers/$id.$this->format"
-						   : self::status."/followers.$this->format";
+		$this->url = ($id) ? self::STATUS."/followers/$id.$this->format"
+						   : self::STATUS."/followers.$this->format";
 		$this->add('page', $page);
 
 		return $this->connect(TRUE);
@@ -327,8 +327,8 @@ class Twitter_Core {
 	 */
 	function user($id = NULL, $email = NULL, $user_id = NULL, $screen_name = NULL)
 	{
-		$this->url = ($id) ? self::user."/show/$id.$this->format"
-						   : self::user."/show.$this->format";
+		$this->url = ($id) ? self::USER."/show/$id.$this->format"
+						   : self::USER."/show.$this->format";
 		$args = func_get_args();
 		// shift to ignore id
 		array_shift($args);
@@ -355,7 +355,7 @@ class Twitter_Core {
 	 */
 	function direct_messages($since = NULL, $since_id = NULL, $page = NULL)
 	{
-		$this->url = self::message.".$this->format";
+		$this->url = self::MESSAGE.".$this->format";
 		$args = func_get_args();
 		$this->add(array('since', 'since_id', 'page'), $args);
 
@@ -379,7 +379,7 @@ class Twitter_Core {
 	 */
 	function sent_messages($since = NULL, $since_id = NULL, $page = NULL)
 	{
-		$this->url = self::message."/sent.$this->format";
+		$this->url = self::MESSAGE."/sent.$this->format";
 		$args = func_get_args();
 		$this->add(array('since', 'since_id', 'page'), $args);
 		
@@ -402,7 +402,7 @@ class Twitter_Core {
 	function new_message($user, $text)
 	{
 		$text = substr(stripslashes($text), 0, 139);
-		$this->url = self::message."/new.$this->format";
+		$this->url = self::MESSAGE."/new.$this->format";
 		$data = array('user' => $user, 'text' => $text);
 		$this->add('source', $this->application);
 
@@ -423,7 +423,7 @@ class Twitter_Core {
 	 */
 	function destroy_message($id)
 	{
-		$this->url = self::message."/destroy/$id.$this->format";
+		$this->url = self::MESSAGE."/destroy/$id.$this->format";
 		// cURL returns NULL
 		$this->ignore_curl_error_numbers[] = 26;
 		
@@ -453,7 +453,7 @@ class Twitter_Core {
 	 */
 	function create_friendship($id, $follow = 'TRUE' )
 	{
-		$this->url = self::friendship."/create/$id.$this->format?follow=".$follow;
+		$this->url = self::FRIENDSHIP."/create/$id.$this->format?follow=".$follow;
 
 		return $this->connect(TRUE, TRUE);
 	}
@@ -474,7 +474,7 @@ class Twitter_Core {
 	 */
 	function destroy_friendship($id)
 	{
-		$this->url = self::friendship."/destroy/$id.$this->format";
+		$this->url = self::FRIENDSHIP."/destroy/$id.$this->format";
 		// cURL returns NULL
 		$this->ignore_curl_error_numbers[] = 26;
 
@@ -495,7 +495,7 @@ class Twitter_Core {
 	 */
 	function friendship_exists($user_a, $user_b)
 	{
-		$this->url = self::friendship."/exists.$this->format?user_a=$user_a&user_b=$user_b";
+		$this->url = self::FRIENDSHIP."/exists.$this->format?user_a=$user_a&user_b=$user_b";
 
 		return $this->connect(TRUE);
 	}
@@ -561,7 +561,7 @@ class Twitter_Core {
 	 */
 	function verify_credentials()
 	{
-		$this->url = self::account."/verify_credentials.$this->format";
+		$this->url = self::ACCOUNT."/verify_credentials.$this->format";
 		
 		return $this->connect(TRUE);
 	}
@@ -580,7 +580,7 @@ class Twitter_Core {
 	 */
 	function end_session()
 	{
-		$this->url = self::account."/end_session.$this->format";
+		$this->url = self::ACCOUNT."/end_session.$this->format";
 		
 		return $this->connect(TRUE);
 	}
@@ -599,7 +599,7 @@ class Twitter_Core {
 	 */
 	function update_delivery_device($device)
 	{
-		$this->url = self::account."/update_delivery_device.$this->format?device=$device";
+		$this->url = self::ACCOUNT."/update_delivery_device.$this->format?device=$device";
 
 		return $this->connect(TRUE, TRUE);
 	}
@@ -626,7 +626,7 @@ class Twitter_Core {
 		$profile_text_color = NULL, $profile_link_color = NULL,
 		$profile_sidebar_fill_color = NULL, $profile_sidebar_border_color = NULL)
 	{
-		$this->url = self::account."/update_profile_colors.$this->format";
+		$this->url = self::ACCOUNT."/update_profile_colors.$this->format";
 		$args = func_get_args();
 		$this->add(array(
 					'profile_background_color',
@@ -658,7 +658,7 @@ class Twitter_Core {
 	 */
 	function update_profile_image($raw_data, $mime)
 	{
-		$this->url = self::account."/update_profile_image.$this->format";
+		$this->url = self::ACCOUNT."/update_profile_image.$this->format";
 		$data = array('image' => $raw_data);
 		$this->headers[] = 'Content-Type: '.$mime;
 
@@ -684,7 +684,7 @@ class Twitter_Core {
 	 */
 	function update_profile_background_image($raw_data, $mime)
 	{
-		$this->url = self::account."/update_profile_background_image.$this->format";
+		$this->url = self::ACCOUNT."/update_profile_background_image.$this->format";
 		$data = array('image' => $raw_data);
 		$this->headers[] = 'Content-Type: '.$mime;
 
@@ -708,7 +708,7 @@ class Twitter_Core {
 	 */
 	function rate_limit_status()
 	{
-		$this->url = self::account."/rate_limit_status.$this->format";
+		$this->url = self::ACCOUNT."/rate_limit_status.$this->format";
 
 		return $this->connect(TRUE);
 	}
@@ -734,7 +734,7 @@ class Twitter_Core {
 	function update_profile($name = NULL, $email = NULL, $url = NULL,
 		$location = NULL, $description = NULL)
 	{
-		$this->url = self::account."/update_profile.$this->format";
+		$this->url = self::ACCOUNT."/update_profile.$this->format";
 		$args = func_get_args();
 		$this->add(array('name', 'email', 'url', 'location', 'description'), $args);
 
@@ -760,8 +760,8 @@ class Twitter_Core {
 	 */
 	function favorites($id = NULL, $page = NULL)
 	{
-		$this->url = ($id) ? self::favorite."/$id.$this->format"
-						   : self::favorite.".$this->format";
+		$this->url = ($id) ? self::FAVORITE."/$id.$this->format"
+						   : self::FAVORITE.".$this->format";
 		$this->add('page', $page);
 
 		return $this->connect(TRUE);
@@ -779,7 +779,7 @@ class Twitter_Core {
 	 */
 	function create_favorite($id)
 	{
-		$this->url = self::favorite."/create/$id.$this->format";
+		$this->url = self::FAVORITE."/create/$id.$this->format";
 
 		return $this->connect(TRUE, TRUE);
 	}
@@ -799,7 +799,7 @@ class Twitter_Core {
 	 */
 	function destroy_favorite($id)
 	{
-		$this->url = self::favorite."/destroy/$id.$this->format";
+		$this->url = self::FAVORITE."/destroy/$id.$this->format";
 		// cURL returns NULL
 		$this->ignore_curl_error_numbers[] = 26;
 
@@ -826,7 +826,7 @@ class Twitter_Core {
 	 */
 	function follow($id)
 	{
-		$this->url = self::notification."/follow/$id.$this->format";
+		$this->url = self::NOTIFICATION."/follow/$id.$this->format";
 
 		return $this->connect(TRUE, TRUE);
 	}
@@ -847,7 +847,7 @@ class Twitter_Core {
 	 */
 	function leave($id)
 	{
-		$this->url = self::notification."/leave/$id.$this->format";
+		$this->url = self::NOTIFICATION."/leave/$id.$this->format";
 
 		return $this->connect(TRUE, TRUE);
 	}
@@ -872,7 +872,7 @@ class Twitter_Core {
 	 */
 	function create_block($id)
 	{
-		$this->url = self::block."/create/$id.$this->format";
+		$this->url = self::BLOCK."/create/$id.$this->format";
 
 		return $this->connect(TRUE, TRUE);
 	}
@@ -891,7 +891,7 @@ class Twitter_Core {
 	 */
 	function destroy_block($id)
 	{
-		$this->url = self::block."/destroy/$id.$this->format";
+		$this->url = self::BLOCK."/destroy/$id.$this->format";
 
 		return $this->connect(TRUE, TRUE);
 	}
@@ -909,7 +909,7 @@ class Twitter_Core {
 	 */
 	function test()
 	{
-		$this->url = self::help."/test.$this->format";
+		$this->url = self::HELP."/test.$this->format";
 
 		return $this->connect(TRUE);
 	}
