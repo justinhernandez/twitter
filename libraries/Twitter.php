@@ -26,6 +26,16 @@ class Twitter_Core {
 	// NULL and cURL will return error #26: unreadable
 	private $ignore_curl_error_numbers = array();
 
+	// Search specific variables explained in twitter configuration
+	private $search_options = array(
+								'rpp'		=> NULL,
+								'page'		=> NULL,
+								'since_id'	=> NULL,
+								'geocode'	=> NULL,
+								'show_user'	=> NULL,
+								'lang'		=> NULL
+								);
+
 	// Twitter method urls
 	const STATUS		= 'http://twitter.com/statuses';
 	const USER			= 'http://twitter.com/users';
@@ -36,6 +46,8 @@ class Twitter_Core {
 	const NOTIFICATION	= 'http://twitter.com/notifications';
 	const BLOCK			= 'http://twitter.com/blocks';
 	const HELP			= 'http://twitter.com/help';
+	const SEARCH		= 'http://search.twitter.com/search';
+	const TREND			= 'http://search.twitter.com/trends';
 
 	/**
 	 * Singleton instance of Twitter.
@@ -924,6 +936,240 @@ class Twitter_Core {
 		return $this->status;
 	}
 
+
+	/* SEARCH METHODS */
+
+
+	/**
+	 * Find tweets containing a word: http://search.twitter.com/search.atom?q=twitter
+	 * Combine any of the operators together: http://search.twitter.com/search.atom?q=movie+%3A%29
+	 *
+	 * @param   string  $phrase
+	 * @return  string
+	 */
+	function search($phrase)
+	{
+		$this->url = self::SEARCH.".$this->format?q=".$phrase;
+		$this->check_search_options();
+
+		return $this->connect(FALSE, FALSE);
+	}
+
+	/**
+	 * Find tweets from a user: http://search.twitter.com/search.atom?q=from%3Aalexiskold
+	 *
+	 * @param   string  $user
+	 * @return  string
+	 */
+	function search_from($user)
+	{
+		$this->url = self::SEARCH.".$this->format?q=from%3A".$user;
+		$this->check_search_options();
+
+		return $this->connect(FALSE, FALSE);
+	}
+
+	/**
+	 * Find tweets to a user: http://search.twitter.com/search.atom?q=to%3Atechcrunch
+	 *
+	 * @param   string  $user
+	 * @return  string
+	 */
+	function search_to($user)
+	{
+		$this->url = self::SEARCH.".$this->format?q=to%3A".$user;
+		$this->check_search_options();
+
+		return $this->connect(FALSE, FALSE);
+	}
+	
+	/**
+	 * Find tweets referencing a user: http://search.twitter.com/search.atom?q=%40mashable
+	 *
+	 * @param   string  $user
+	 * @return  string
+	 */
+	function search_user($user)
+	{
+		$this->url = self::SEARCH.".$this->format?q=%40".$user;
+		$this->check_search_options();
+
+		return $this->connect(FALSE, FALSE);
+	}
+
+	/**
+	 * Find tweets containing a hashtag (up to 16 characters): http://search.twitter.com/search.atom?q=%23haiku
+	 *
+	 * @param   string  $phrase
+	 * @return  string
+	 */
+	function search_hash($phrase)
+	{
+		$this->url = self::SEARCH.".$this->format?q=%23".$phrase;
+		$this->check_search_options();
+
+		return $this->connect(FALSE, FALSE);
+	}
+
+	/**
+	 * restricts tweets to the given language, given by an ISO 639-1 code. Ex: http://search.twitter.com/search.atom?lang=en&q=devo
+	 * check here for lang types http://en.wikipedia.org/wiki/ISO_639-1
+	 * chainable
+	 *
+	 * @param   string  $lang
+	 * @return  object
+	 */
+	function lang($value)
+	{
+		$this->search_options['lang'] = $value;
+
+		return $this;
+	}
+
+	/**
+	 * the number of tweets to return per page, up to a max of 100.
+	 * Ex: http://search.twitter.com/search.atom?lang=en&q=devo&rpp=15
+	 *
+	 * @param   string  $rpp
+	 * @return  object
+	 */
+	function rpp($value)
+	{
+		$this->search_options['rpp'] = $value;
+
+		return $this;
+	}
+
+	/**
+	 * the page number (starting at 1) to return, up to a max of roughly 1500
+	 * results (based on rpp * page)
+	 *
+	 * @param   string  $value
+	 * @return  object
+	 */
+	function page($value)
+	{
+		$this->search_options['page'] = $value;
+
+		return $this;
+	}
+
+	/**
+	 * returns tweets with status ids greater than the given id.
+	 *
+	 * @param   string  $value
+	 * @return  object
+	 */
+	function since_id($value)
+	{
+		$this->search_options['since_id'] = $value;
+
+		return $this;
+	}
+
+	/**
+	 * returns tweets by users located within a given radius of the given
+	 * latitude/longitude, where the user's location is taken from their Twitter
+	 * profile. The parameter value is specified by "latitide,longitude,radius",
+	 * where radius units must be specified as either "mi" (miles) or "km"
+	 * (kilometers).
+	 * Ex: http://search.twitter.com/search.atom?geocode=40.757929%2C-73.985506%2C25km.
+	 * Note that you cannot use the near operator via the API to geocode
+	 * arbitrary locations; however you can use this geocode parameter to
+	 * search near geocodes directly.
+	 *
+	 * @param   string  $value
+	 * @return  object
+	 */
+	function geocode($value)
+	{
+		$this->search_options['geocode'] = $value;
+
+		return $this;
+	}
+
+	/**
+	 * the page number (starting at 1) to return, up to a max of roughly 1500
+	 * results (based on rpp * page)
+	 *
+	 * @param   string  $value
+	 * @return  object
+	 */
+	function show_user($value)
+	{
+		$this->search_options['show_user'] = $value;
+
+		return $this;
+	}
+
+	/**
+	 * Check search options. If options are not set then pull default setting
+	 * from the config file.
+	 */
+	private function check_search_options()
+	{
+		foreach ($this->search_options as $option => $value)
+		{
+			if (!$value) $this->search_options[$option] = Kohana::config("twitter.$option");
+		}
+
+		$this->add(array_keys($this->search_options), array_values($this->search_options));
+	}
+
+
+	/* TREND METHODS */
+
+
+	/**
+	 * Returns the current top 10 trending topics.
+	 *
+	 * @param   string  $exclude
+	 * @return  string
+	 */
+	function current_trends($exclude = FALSE)
+	{
+		$this->url = self::TREND."/current.$this->format";
+		if ($exclude) $this->add('exclude', $exclude);
+
+		return $this->connect(FALSE, FALSE);
+	}
+
+	/**
+	 * Returns the top 20 trending topics for each hour in a given day.
+	 *
+	 * @param   string  $date		i.e.	2009-03-19
+	 * @param   string  $exclude
+	 * @return  string
+	 */
+	function daily_trends($date = FALSE, $exclude = FALSE)
+	{
+		$this->url = self::TREND."/daily.$this->format";
+		if ($date) $this->add('date', $date);
+		if ($exclude) $this->add('exclude', $exclude);
+
+		return $this->connect(FALSE, FALSE);
+	}
+
+	/**
+	 * Returns the top 30 trending topics for each day in a given week.
+	 *
+	 * @param   string  $date		i.e.	2009-03-19
+	 * @param   string  $exclude
+	 * @return  string
+	 */
+	function weekly_trends($date = FALSE, $exclude = FALSE)
+	{
+		$this->url = self::TREND."/weekly.$this->format";
+		if ($date) $this->add('date', $date);
+		if ($exclude) $this->add('exclude', $exclude);
+
+		return $this->connect(FALSE, FALSE);
+	}
+	
+
+	/* CLASS METHODS */
+
+
 	/**
 	 * Return last api call stored in private class variable $last.
 	 *
@@ -970,7 +1216,8 @@ class Twitter_Core {
 			$val = @$values[$i];
 			if ($val)
 			{
-				$this->url .= (strpos($this->url, '?')) ? "&$param=" . $val
+				echo($param.'<br/>');
+				$this->url .= (strpos($this->url, '?')) ? "&amp;$param=" . $val
 													   : "?$param=" . $val;
 			}
 		}
@@ -998,19 +1245,37 @@ class Twitter_Core {
 						);
 
 		// curl init
-		$curl = new Curl($curl_options);
-		// add curl options
-		if (count($this->headers)>0) $curl->addOption(CURLOPT_HTTPHEADER, $this->headers);
-		if ($login) $curl->addOption(CURLOPT_USERPWD, $this->login);
-		if ($post) $curl->addOption(CURLOPT_POST, TRUE);
-		if (is_array($post_data)) $curl->addOption(CURLOPT_POSTFIELDS, $post_data);
+		$curl = curl_init();
 		
+		// add curl options
+		if (count($this->headers)>0) $curl_options[CURLOPT_HTTPHEADER] = $this->headers;
+		if ($login) $curl_options[CURLOPT_USERPWD] = $this->login;
+		if ($post) $curl_options[CURLOPT_POST] = TRUE;
+		if (is_array($post_data)) $curl_options[CURLOPT_POSTFIELDS] = $post_data;
+
+		// add options array
+		curl_setopt_array($curl, $curl_options);
+
 		// retrieve data
-		$data = $curl->execute($this->ignore_curl_error_numbers);
+		$data = curl_exec($curl);
+
+		// Check for any errors, if any occurred throw an exception...
+		$errno = curl_errno($curl);
+		if($errno > 0)
+		{
+			if(!in_array($errno, $this->ignore_curl_error_numbers))
+				throw new Kohana_User_Exception('A cURL error occurred - '.$errno, curl_error($curl));
+		}
+		
 		// set curl http status
-		$this->status = $curl->status();
+		$this->status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+		// close curl connection
+		curl_close($curl);
+
 		// set last call
 		$this->last = $this->url;
+
 		// clear settings
 		$this->url = '';
 		$this->headers = '';

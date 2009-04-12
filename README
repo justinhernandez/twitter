@@ -10,3 +10,6 @@ http://github.com/jdp/twitterlibphp
 Thanks!
 
 Check out the extensive demo @ http://your_website/twitterdemo
+
+To register your app with Twitter go here - http://twitter.com/help/request_source.
+So when tweeting it will say something other than 'from Web'.

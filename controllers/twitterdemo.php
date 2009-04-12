@@ -410,4 +410,49 @@ class TwitterDemo_Controller extends Controller
 	{
 		$this->t->test();
 	}
+
+	public function search()
+	{
+		$this->t->search('kohana');
+	}
+
+	public function search_advanced()
+	{
+		$this->t->search('kohana+easy');
+	}
+
+	public function search_from()
+	{
+		$this->t->search_from('zeelot3k');
+	}
+
+	public function search_to()
+	{
+		$this->t->search_to('PolarisDigital');
+	}
+
+	public function search_user()
+	{
+		$this->t->search_user('Shadowhand');
+	}
+
+	public function search_hash()
+	{
+		$this->t->search_hash('php');
+	}
+
+	public function current_trends()
+	{
+		$this->t->current_trends();
+	}
+
+	public function daily_trends()
+	{
+		$this->t->daily_trends('2009-03-19', 'hashtags');
+	}
+
+	public function weekly_trends()
+	{
+		$this->t->weekly_trends('2009-03-19');
+	}
 }
