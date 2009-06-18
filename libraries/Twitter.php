@@ -1227,7 +1227,7 @@ class Twitter_Core {
 			$val = @$values[$i];
 			if ($val)
 			{
-				$this->url .= (strpos($this->url, '?')) ? "&amp;$param=" . $val
+				$this->url .= (strpos($this->url, '?')) ? "&$param=" . $val
 													   : "?$param=" . $val;
 			}
 		}
