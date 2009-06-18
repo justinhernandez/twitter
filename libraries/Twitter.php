@@ -3,7 +3,7 @@
  * Copyright (c) <2008> Justin Poliey <jdp34@njit.edu>
  * Adapted from http://jdp.github.com/twitterlibphp
  *
- * Version: 0.2
+ * Version: 0.3
  */
 
 class Twitter_Core {
