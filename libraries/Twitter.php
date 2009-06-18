@@ -90,7 +90,7 @@ class Twitter_Core {
 	 * @param  string  $application	Twitter application name
 	 * @param  string  $format		Encoding format
 	 */
-	function __construct($username, $password, $application = FALSE, $format = FALSE)
+	public function __construct($username, $password, $application = FALSE, $format = FALSE)
 	{
 		$this->login = "$username:$password";
 		$this->application = ($application) ? $application : (Kohana::config('twitter.application'));
@@ -189,7 +189,7 @@ class Twitter_Core {
 	 * @param	int		$id		Status id #
 	 * @return  string
 	 */
-	function show_status($id)
+	public function show_status($id)
 	{
 		$this->url = self::STATUS."/show/$id.$this->format";
 
@@ -212,7 +212,7 @@ class Twitter_Core {
 	 * @param   int		$in_reply_to_status_id	Reply to status #
 	 * @return  string
 	 */
-	function update_status($status, $in_reply_to_status_id = NULL)
+	public function update_status($status, $in_reply_to_status_id = NULL)
 	{
 		// chops status length to 140
 		$status = substr(stripslashes($status), 0, 139);
@@ -237,7 +237,7 @@ class Twitter_Core {
 	 * @param   int		$since_id	Since status id
 	 * @return  string
 	 */
-	function replies($page = NULL, $since = NULL, $since_id = NULL)
+	public function replies($page = NULL, $since = NULL, $since_id = NULL)
 	{
 		$this->url = self::STATUS."/replies.$this->format";
 		$args = func_get_args();
@@ -258,7 +258,7 @@ class Twitter_Core {
 	 * @param   int		$id		Status id #
 	 * @return  string
 	 */
-	function destroy_status($id)
+	public function destroy_status($id)
 	{
 		$this->url = self::STATUS."/destroy/$id.$this->format";
 		// cURL returns NULL
@@ -287,7 +287,7 @@ class Twitter_Core {
 	 * @param   int		$page	Retrieves next 100 friends from page #
 	 * @return  string
 	 */
-	function friends($id = NULL, $page = NULL)
+	public function friends($id = NULL, $page = NULL)
 	{
 		$this->url = ($id) ? self::STATUS."/friends/$id.$this->format"
 						   : self::STATUS."/friends.$this->format";
@@ -310,7 +310,7 @@ class Twitter_Core {
 	 * @param   int		$page	Retrieves next 100 friends from page #
 	 * @return  string
 	 */
-	function followers($id = NULL, $page = NULL)
+	public function followers($id = NULL, $page = NULL)
 	{
 		$this->url = ($id) ? self::STATUS."/followers/$id.$this->format"
 						   : self::STATUS."/followers.$this->format";
@@ -337,7 +337,7 @@ class Twitter_Core {
 	 * @param	string	$screen_name	Screen name
 	 * @return  string
 	 */
-	function user($id = NULL, $email = NULL, $user_id = NULL, $screen_name = NULL)
+	public function user($id = NULL, $email = NULL, $user_id = NULL, $screen_name = NULL)
 	{
 		$this->url = ($id) ? self::USER."/show/$id.$this->format"
 						   : self::USER."/show.$this->format";
@@ -365,7 +365,7 @@ class Twitter_Core {
 	 * @param   int		$page		Start from page #
 	 * @return  string
 	 */
-	function direct_messages($since = NULL, $since_id = NULL, $page = NULL)
+	public function direct_messages($since = NULL, $since_id = NULL, $page = NULL)
 	{
 		$this->url = self::MESSAGE.".$this->format";
 		$args = func_get_args();
@@ -389,7 +389,7 @@ class Twitter_Core {
 	 * @param   int		$page		Start from page #
 	 * @return  string
 	 */
-	function sent_messages($since = NULL, $since_id = NULL, $page = NULL)
+	public function sent_messages($since = NULL, $since_id = NULL, $page = NULL)
 	{
 		$this->url = self::MESSAGE."/sent.$this->format";
 		$args = func_get_args();
@@ -411,7 +411,7 @@ class Twitter_Core {
 	 * @param   string  $text  Message body
 	 * @return  strint
 	 */
-	function new_message($user, $text)
+	public function new_message($user, $text)
 	{
 		$text = substr(stripslashes($text), 0, 139);
 		$this->url = self::MESSAGE."/new.$this->format";
@@ -433,7 +433,7 @@ class Twitter_Core {
 	 * @param   int     $id  Message id #
 	 * @return  string
 	 */
-	function destroy_message($id)
+	public function destroy_message($id)
 	{
 		$this->url = self::MESSAGE."/destroy/$id.$this->format";
 		// cURL returns NULL
@@ -463,7 +463,7 @@ class Twitter_Core {
 	 * @param	string  $follow		Notify target user of friendship?
 	 * @return  string
 	 */
-	function create_friendship($id, $follow = 'TRUE' )
+	public function create_friendship($id, $follow = 'TRUE' )
 	{
 		$this->url = self::FRIENDSHIP."/create/$id.$this->format?follow=".$follow;
 
@@ -484,7 +484,7 @@ class Twitter_Core {
 	 * @param   mixed   $id  Twitter username or user id
 	 * @return  string
 	 */
-	function destroy_friendship($id)
+	public function destroy_friendship($id)
 	{
 		$this->url = self::FRIENDSHIP."/destroy/$id.$this->format";
 		// cURL returns NULL
@@ -505,7 +505,7 @@ class Twitter_Core {
 	 * @param   string  $user_b  Twitter username or user id
 	 * @return  boolean
 	 */
-	function friendship_exists($user_a, $user_b)
+	public function friendship_exists($user_a, $user_b)
 	{
 		$this->url = self::FRIENDSHIP."/exists.$this->format?user_a=$user_a&user_b=$user_b";
 
@@ -528,7 +528,7 @@ class Twitter_Core {
 	 * @param   mixed   $id  Twitter username or user id
 	 * @return  string
 	 */
-	function friend_ids($id = NULL)
+	public function friend_ids($id = NULL)
 	{
 		$this->url = ($id) ? "http://twitter.com/friends/ids/$id.$this->format"
 						   : "http://twitter.com/friends/ids.$this->format";
@@ -547,7 +547,7 @@ class Twitter_Core {
 	 * @param   mixed   $id  Twitter username or user id
 	 * @return  string
 	 */
-	function follower_ids($id = NULL)
+	public function follower_ids($id = NULL)
 	{
 		$this->url = ($id) ? "http://twitter.com/followers/ids/$id.$this->format"
 						   : "http://twitter.com/followers/ids.$this->format";
@@ -571,7 +571,7 @@ class Twitter_Core {
 	 *
 	 * @return  int  200 for valid, 401 for invalid
 	 */
-	function verify_credentials()
+	public function verify_credentials()
 	{
 		$this->url = self::ACCOUNT."/verify_credentials.$this->format";
 		
@@ -590,7 +590,7 @@ class Twitter_Core {
 	 * 
 	 * @return  string, null cookie
 	 */
-	function end_session()
+	public function end_session()
 	{
 		$this->url = self::ACCOUNT."/end_session.$this->format";
 		
@@ -609,7 +609,7 @@ class Twitter_Core {
 	 * @param   string  $device  Update device. Must be sms, im, none
 	 * @return  string
 	 */
-	function update_delivery_device($device)
+	public function update_delivery_device($device)
 	{
 		$this->url = self::ACCOUNT."/update_delivery_device.$this->format?device=$device";
 
@@ -634,7 +634,7 @@ class Twitter_Core {
 	 * @param   string  $profile_sidebar_border_color	Hex color value
 	 * @return  string
 	 */
-	function update_profile_colors($profile_background_color = NULL, 
+	public function update_profile_colors($profile_background_color = NULL, 
 		$profile_text_color = NULL, $profile_link_color = NULL,
 		$profile_sidebar_fill_color = NULL, $profile_sidebar_border_color = NULL)
 	{
@@ -668,7 +668,7 @@ class Twitter_Core {
 	 * @param   string  $mime       Image mime type
 	 * @return  string
 	 */
-	function update_profile_image($raw_data, $mime)
+	public function update_profile_image($raw_data, $mime)
 	{
 		$this->url = self::ACCOUNT."/update_profile_image.$this->format";
 		$data = array('image' => $raw_data);
@@ -694,7 +694,7 @@ class Twitter_Core {
 	 * @param   string  $mime       Image mime type
 	 * @return  string
 	 */
-	function update_profile_background_image($raw_data, $mime)
+	public function update_profile_background_image($raw_data, $mime)
 	{
 		$this->url = self::ACCOUNT."/update_profile_background_image.$this->format";
 		$data = array('image' => $raw_data);
@@ -718,7 +718,7 @@ class Twitter_Core {
 	 *
 	 * @return  string
 	 */
-	function rate_limit_status()
+	public function rate_limit_status()
 	{
 		$this->url = self::ACCOUNT."/rate_limit_status.$this->format";
 
@@ -743,7 +743,7 @@ class Twitter_Core {
 	 * @param <type> $description
 	 * @return <type>
 	 */
-	function update_profile($name = NULL, $email = NULL, $url = NULL,
+	public function update_profile($name = NULL, $email = NULL, $url = NULL,
 		$location = NULL, $description = NULL)
 	{
 		$this->url = self::ACCOUNT."/update_profile.$this->format";
@@ -770,7 +770,7 @@ class Twitter_Core {
 	 * @param   string  $page  Page #, 20 per page
 	 * @return  string
 	 */
-	function favorites($id = NULL, $page = NULL)
+	public function favorites($id = NULL, $page = NULL)
 	{
 		$this->url = ($id) ? self::FAVORITE."/$id.$this->format"
 						   : self::FAVORITE.".$this->format";
@@ -789,7 +789,7 @@ class Twitter_Core {
 	 * @param  string  $id  Status id #
 	 * @return string
 	 */
-	function create_favorite($id)
+	public function create_favorite($id)
 	{
 		$this->url = self::FAVORITE."/create/$id.$this->format";
 
@@ -809,7 +809,7 @@ class Twitter_Core {
 	 * @param  string  $id  Status id #
 	 * @return string
 	 */
-	function destroy_favorite($id)
+	public function destroy_favorite($id)
 	{
 		$this->url = self::FAVORITE."/destroy/$id.$this->format";
 		// cURL returns NULL
@@ -836,7 +836,7 @@ class Twitter_Core {
 	 * @param   string  $id  Screen name or user id #
 	 * @return  string
 	 */
-	function follow($id)
+	public function follow($id)
 	{
 		$this->url = self::NOTIFICATION."/follow/$id.$this->format";
 
@@ -857,7 +857,7 @@ class Twitter_Core {
 	 * @param   string  $id    Screen name or user id #
 	 * @return  string
 	 */
-	function leave($id)
+	public function leave($id)
 	{
 		$this->url = self::NOTIFICATION."/leave/$id.$this->format";
 
@@ -882,7 +882,7 @@ class Twitter_Core {
 	 * @param  string  $id  Screen name or user id #
 	 * @return string
 	 */
-	function create_block($id)
+	public function create_block($id)
 	{
 		$this->url = self::BLOCK."/create/$id.$this->format";
 
@@ -901,7 +901,7 @@ class Twitter_Core {
 	 * @param  string  $id  Screen name or user id #
 	 * @return string
 	 */
-	function destroy_block($id)
+	public function destroy_block($id)
 	{
 		$this->url = self::BLOCK."/destroy/$id.$this->format";
 
@@ -919,7 +919,7 @@ class Twitter_Core {
 	 *
 	 * @return  string
 	 */
-	function test()
+	public function test()
 	{
 		$this->url = self::HELP."/test.$this->format";
 
@@ -947,7 +947,7 @@ class Twitter_Core {
 	 * @param   string  $phrase
 	 * @return  string
 	 */
-	function search($phrase)
+	public function search($phrase)
 	{
 		$this->url = self::SEARCH.".$this->format?q=".$phrase;
 		$this->check_search_options();
@@ -961,7 +961,7 @@ class Twitter_Core {
 	 * @param   string  $user
 	 * @return  string
 	 */
-	function search_from($user)
+	public function search_from($user)
 	{
 		$this->url = self::SEARCH.".$this->format?q=from%3A".$user;
 		$this->check_search_options();
@@ -975,7 +975,7 @@ class Twitter_Core {
 	 * @param   string  $user
 	 * @return  string
 	 */
-	function search_to($user)
+	public function search_to($user)
 	{
 		$this->url = self::SEARCH.".$this->format?q=to%3A".$user;
 		$this->check_search_options();
@@ -989,7 +989,7 @@ class Twitter_Core {
 	 * @param   string  $user
 	 * @return  string
 	 */
-	function search_user($user)
+	public function search_user($user)
 	{
 		$this->url = self::SEARCH.".$this->format?q=%40".$user;
 		$this->check_search_options();
@@ -1003,7 +1003,7 @@ class Twitter_Core {
 	 * @param   string  $phrase
 	 * @return  string
 	 */
-	function search_hash($phrase)
+	public function search_hash($phrase)
 	{
 		$this->url = self::SEARCH.".$this->format?q=%23".$phrase;
 		$this->check_search_options();
@@ -1019,7 +1019,7 @@ class Twitter_Core {
 	 * @param   string  $lang
 	 * @return  object
 	 */
-	function lang($value)
+	public function lang($value)
 	{
 		$this->search_options['lang'] = $value;
 
@@ -1033,11 +1033,22 @@ class Twitter_Core {
 	 * @param   string  $rpp
 	 * @return  object
 	 */
-	function rpp($value)
+	public function rpp($value)
 	{
 		$this->search_options['rpp'] = $value;
 
 		return $this;
+	}
+	
+	/**
+	 * Alias for rpp
+	 *
+	 * @param   string  $rpp
+	 * @return  object
+	 */
+	public function limit($value)
+	{
+		$this->rpp($value);
 	}
 
 	/**
@@ -1047,7 +1058,7 @@ class Twitter_Core {
 	 * @param   string  $value
 	 * @return  object
 	 */
-	function page($value)
+	public function page($value)
 	{
 		$this->search_options['page'] = $value;
 
@@ -1060,7 +1071,7 @@ class Twitter_Core {
 	 * @param   string  $value
 	 * @return  object
 	 */
-	function since_id($value)
+	public function since_id($value)
 	{
 		$this->search_options['since_id'] = $value;
 
@@ -1081,7 +1092,7 @@ class Twitter_Core {
 	 * @param   string  $value
 	 * @return  object
 	 */
-	function geocode($value)
+	public function geocode($value)
 	{
 		$this->search_options['geocode'] = $value;
 
@@ -1095,7 +1106,7 @@ class Twitter_Core {
 	 * @param   string  $value
 	 * @return  object
 	 */
-	function show_user($value)
+	public function show_user($value)
 	{
 		$this->search_options['show_user'] = $value;
 
@@ -1126,7 +1137,7 @@ class Twitter_Core {
 	 * @param   string  $exclude
 	 * @return  string
 	 */
-	function current_trends($exclude = FALSE)
+	public function current_trends($exclude = FALSE)
 	{
 		$this->url = self::TREND."/current.$this->format";
 		if ($exclude) $this->add('exclude', $exclude);
@@ -1141,7 +1152,7 @@ class Twitter_Core {
 	 * @param   string  $exclude
 	 * @return  string
 	 */
-	function daily_trends($date = FALSE, $exclude = FALSE)
+	public function daily_trends($date = FALSE, $exclude = FALSE)
 	{
 		$this->url = self::TREND."/daily.$this->format";
 		if ($date) $this->add('date', $date);
@@ -1157,7 +1168,7 @@ class Twitter_Core {
 	 * @param   string  $exclude
 	 * @return  string
 	 */
-	function weekly_trends($date = FALSE, $exclude = FALSE)
+	public function weekly_trends($date = FALSE, $exclude = FALSE)
 	{
 		$this->url = self::TREND."/weekly.$this->format";
 		if ($date) $this->add('date', $date);
