@@ -1216,7 +1216,6 @@ class Twitter_Core {
 			$val = @$values[$i];
 			if ($val)
 			{
-				echo($param.'<br/>');
 				$this->url .= (strpos($this->url, '?')) ? "&amp;$param=" . $val
 													   : "?$param=" . $val;
 			}
