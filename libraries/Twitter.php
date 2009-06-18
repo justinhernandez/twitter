@@ -1048,7 +1048,7 @@ class Twitter_Core {
 	 */
 	public function limit($value)
 	{
-		$this->rpp($value);
+		return $this->rpp($value);
 	}
 
 	/**
