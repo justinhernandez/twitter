@@ -3,7 +3,7 @@
  * Copyright (c) <2008> Justin Poliey <jdp34@njit.edu>
  * Adapted from http://jdp.github.com/twitterlibphp
  *
- * Version: 0.3
+ * Version: 0.2
  */
 
 class Twitter_Core {
@@ -1225,10 +1225,17 @@ class Twitter_Core {
 		foreach($params AS $i => $param)
 		{
 			$val = @$values[$i];
-			if ($val)
+			
+			// use special replace rule to prevent &lang getting all weird
+			if ($param == 'lang' AND ($val))
 			{
-				$this->url .= (strpos($this->url, '?')) ? "&$param=" . $val
-													   : "?$param=" . $val;
+				$parts = split('\?', $this->url);
+				$this->url = $parts[0].'?lang='.$val.'&'.$parts[1];
+			}
+			elseif ($val)
+			{
+				$this->url .= (strpos($this->url, '?')) ? '&'.$param.'='.$val
+													   : '?'.$param.'='.$val;
 			}
 		}
 	}
