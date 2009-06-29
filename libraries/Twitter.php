@@ -949,6 +949,7 @@ class Twitter_Core {
 	 */
 	public function search($phrase)
 	{
+		$phrase = $this->phrase_cleanup($phrase);
 		$this->url = self::SEARCH.".$this->format?q=".$phrase;
 		$this->check_search_options();
 
@@ -1238,6 +1239,28 @@ class Twitter_Core {
 													   : '?'.$param.'='.$val;
 			}
 		}
+	}
+	
+	/**
+	 * Cleans up search phrase and replaces some characters twitter doesn't like
+	 *
+	 * @param   string		$phrase
+	 * @return  string
+	 */
+	private function phrase_cleanup($phrase)
+	{
+		$search = array(
+							'"',
+							':',
+							' ',
+					);
+		$replace = array(
+							'%22',
+							'%3A',
+							'+',
+					);
+					
+		return str_replace($search, $replace, trim($phrase));
 	}
 
 	/**
