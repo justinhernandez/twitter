@@ -1,13 +1,24 @@
-<?php defined('SYSPATH') or die('No direct script access.');
+<?php defined('SYSPATH') OR die('No direct access allowed.');
+/*
+ * Twitter demo controller
+ *
+ * @package    Twitter
+ * @author     Justin Hernandez <justin@transphorm.com>
+ * @license    http://transphorm.com/license.txt
+ */
 
-class TwitterDemo_Controller extends Controller
-{
+class Controller_TwitterDemo extends Kohana_Controller_Template {
 
-	const ALLOW_PRODUCTION = FALSE;
+	// template
+	public $template = false;
+	// autoload
+	public $auto_render = false;
 
-	public function __construct()
+
+	
+	public function before()
 	{
-		parent::__construct();
+		parent::before();
 		
 		/* twitter sandbox for the kohanatwitlib, if you are going to do
 		 * extensive testing please create your own account
@@ -18,22 +29,23 @@ class TwitterDemo_Controller extends Controller
 		$password = 'kohana';
 		$this->t = Twitter::instance($username, $password);
 		$this->u = $username;
-		print('<h1>'.Router::$method.'</h1>');
+		print('<h1>'.$this->request->param('action').'</h1>');
 		print("<h2>user: $username</h2>");
 	}
 
-	public function index()
+	public function action_index()
 	{
 		// base url
-		$base = url::current();
+		$base = $this->request->uri;
 		// get methods
 		$methods = new ArrayIterator(get_class_methods($this));
 		// methods to ignore
 		$ignore = array(
 							'__construct',
-							'index',
+							'action_index',
 							'__call',
-							'_kohana_load_view'
+							'_kohana_load_view',
+							'before'
 						);
 
 		// print demo links
@@ -41,32 +53,35 @@ class TwitterDemo_Controller extends Controller
 		{
 			$c = $methods->current();
 			if (!in_array($c, $ignore))
+			{
+				$c = str_replace('action_', '', $c);
 				print "<a style='margin-left:25px' href='$base/$c'>".$c.'</a><br/>';
+			}
 			$methods->next();
 		}
 	}
 
-	public function public_timeline()
+	public function action_public_timeline()
 	{
 		Twitter::instance()->format('xml')->public_timeline();
 	}
 
-	public function friends_timeline()
+	public function action_friends_timeline()
 	{
 		Twitter::instance()->format('json')->friends_timeline(NULL, NULL, 1);
 	}
 
-	public function user_timeline()
+	public function action_user_timeline()
 	{
 		$this->t->user_timeline('shadowhand', 10);
 	}
 
-	public function show_status()
+	public function action_show_status()
 	{
 		$this->t->show_status(808);
 	}
 
-	public function update_status()
+	public function action_update_status()
 	{
 		if (!$_POST)
 		{
@@ -79,12 +94,12 @@ class TwitterDemo_Controller extends Controller
 		}
 	}
 
-	public function replies()
+	public function action_replies()
 	{
 		$this->t->replies();
 	}
 
-	public function destroy_status()
+	public function action_destroy_status()
 	{
 		if (!$_POST)
 		{
@@ -97,17 +112,17 @@ class TwitterDemo_Controller extends Controller
 		}
 	}
 
-	public function friends()
+	public function action_friends()
 	{
 		$this->t->friends('biz', 2);
 	}
 
-	public function followers()
+	public function action_followers()
 	{
 		$this->t->followers('jack', 2);
 	}
 
-	public function user()
+	public function action_user()
 	{
 		if (!$_POST)
 		{
@@ -120,17 +135,17 @@ class TwitterDemo_Controller extends Controller
 		}
 	}
 
-	public function direct_messages()
+	public function action_direct_messages()
 	{
 		$this->t->format('rss')->direct_messages();
 	}
 
-	public function sent_messages()
+	public function action_sent_messages()
 	{
 		$this->t->format('xml')->sent_messages();
 	}
 
-	public function new_message()
+	public function action_new_message()
 	{
 		if (!$_POST)
 		{
@@ -146,7 +161,7 @@ class TwitterDemo_Controller extends Controller
 		}
 	}
 
-	public function destroy_message()
+	public function action_destroy_message()
 	{
 		if (!$_POST)
 		{
@@ -160,7 +175,7 @@ class TwitterDemo_Controller extends Controller
 		}
 	}
 	
-	public function create_friendship()
+	public function action_create_friendship()
 	{
 		if (!$_POST)
 		{
@@ -174,7 +189,7 @@ class TwitterDemo_Controller extends Controller
 		}
 	}
 
-	public function destroy_friendship()
+	public function action_destroy_friendship()
 	{
 		if (!$_POST)
 		{
@@ -187,7 +202,7 @@ class TwitterDemo_Controller extends Controller
 		}
 	}
 
-	public function friendship_exists()
+	public function action_friendship_exists()
 	{
 		if (!$_POST)
 		{
@@ -202,7 +217,7 @@ class TwitterDemo_Controller extends Controller
 		}
 	}
 
-	public function friend_ids()
+	public function action_friend_ids()
 	{
 		if (!$_POST)
 		{
@@ -215,7 +230,7 @@ class TwitterDemo_Controller extends Controller
 		}
 	}
 
-	public function follower_ids()
+	public function action_follower_ids()
 	{
 		if (!$_POST)
 		{
@@ -228,12 +243,12 @@ class TwitterDemo_Controller extends Controller
 		}
 	}
 
-	public function verify_credentials()
+	public function action_verify_credentials()
 	{
 		$this->t->verify_credentials();
 	}
 
-	public function update_delivery_device()
+	public function action_update_delivery_device()
 	{
 		if (!$_POST)
 		{
@@ -246,7 +261,7 @@ class TwitterDemo_Controller extends Controller
 		}
 	}
 
-	public function update_profile_colors()
+	public function action_update_profile_colors()
 	{
 		if (!$_POST)
 		{
@@ -265,7 +280,7 @@ class TwitterDemo_Controller extends Controller
 		}
 	}
 
-	public function update_profile_image()
+	public function action_update_profile_image()
 	{
 		if (!$_FILES)
 		{
@@ -280,7 +295,7 @@ class TwitterDemo_Controller extends Controller
 		}
 	}
 
-	public function update_profile_background_image()
+	public function action_update_profile_background_image()
 	{
 		if (!$_FILES)
 		{
@@ -294,12 +309,12 @@ class TwitterDemo_Controller extends Controller
 		}
 	}
 
-	public function rate_limit_status()
+	public function action_rate_limit_status()
 	{
 		$this->t->rate_limit_status();
 	}
 
-	public function update_profile()
+	public function action_update_profile()
 	{
 		if (!$_POST)
 		{
@@ -317,7 +332,7 @@ class TwitterDemo_Controller extends Controller
 		}
 	}
 
-	public function favorites()
+	public function action_favorites()
 	{
 		if (!$_POST)
 		{
@@ -330,7 +345,7 @@ class TwitterDemo_Controller extends Controller
 		}
 	}
 
-	public function create_favorite()
+	public function action_create_favorite()
 	{
 		if (!$_POST)
 		{
@@ -342,7 +357,7 @@ class TwitterDemo_Controller extends Controller
 		}
 	}
 
-	public function destroy_favorite()
+	public function action_destroy_favorite()
 	{
 		if (!$_POST)
 		{
@@ -354,7 +369,7 @@ class TwitterDemo_Controller extends Controller
 		}
 	}
 
-	public function follow()
+	public function action_follow()
 	{
 		if (!$_POST)
 		{
@@ -367,7 +382,7 @@ class TwitterDemo_Controller extends Controller
 		}
 	}
 
-	public function leave()
+	public function action_leave()
 	{
 		if (!$_POST)
 		{
@@ -380,7 +395,7 @@ class TwitterDemo_Controller extends Controller
 		}
 	}
 
-	public function create_block()
+	public function action_create_block()
 	{
 		if (!$_POST)
 		{
@@ -393,7 +408,7 @@ class TwitterDemo_Controller extends Controller
 		}
 	}
 
-	public function destroy_block()
+	public function action_destroy_block()
 	{
 		if (!$_POST)
 		{
@@ -406,53 +421,54 @@ class TwitterDemo_Controller extends Controller
 		}
 	}
 
-	public function test()
+	public function action_test()
 	{
 		$this->t->test();
 	}
 
-	public function search()
+	public function action_search()
 	{
 		$this->t->search('kohana');
 	}
 
-	public function search_advanced()
+	public function action_search_advanced()
 	{
 		$this->t->search('kohana+easy');
 	}
 
-	public function search_from()
+	public function action_search_from()
 	{
 		$this->t->search_from('zeelot3k');
 	}
 
-	public function search_to()
+	public function action_search_to()
 	{
 		$this->t->search_to('PolarisDigital');
 	}
 
-	public function search_user()
+	public function action_search_user()
 	{
 		$this->t->search_user('Shadowhand');
 	}
 
-	public function search_hash()
+	public function action_search_hash()
 	{
 		$this->t->search_hash('php');
 	}
 
-	public function current_trends()
+	public function action_current_trends()
 	{
 		$this->t->current_trends();
 	}
 
-	public function daily_trends()
+	public function action_daily_trends()
 	{
 		$this->t->daily_trends('2009-03-19', 'hashtags');
 	}
 
-	public function weekly_trends()
+	public function action_weekly_trends()
 	{
 		$this->t->weekly_trends('2009-03-19');
 	}
+
 }

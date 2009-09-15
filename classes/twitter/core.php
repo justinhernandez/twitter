@@ -1,9 +1,11 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 /*
- * Copyright (c) <2008> Justin Poliey <jdp34@njit.edu>
- * Adapted from http://jdp.github.com/twitterlibphp
+ * Twitter api library for Kohana V3
  *
- * Version: 0.2
+ * @package    Twitter
+ * @author     Justin Hernandez <justin@transphorm.com>
+ * @version    0.3
+ * @license    http://transphorm.com/license.txt
  */
 
 class Twitter_Core {
@@ -93,9 +95,9 @@ class Twitter_Core {
 	public function __construct($username, $password, $application = FALSE, $format = FALSE)
 	{
 		$this->login = "$username:$password";
-		$this->application = ($application) ? $application : (Kohana::config('twitter.application'));
+		$this->application = ($application) ? $application : (Kohana::config('twitter')->application);
 		$this->application = urlencode($this->application);
-		$this->format = ($format) ? $format : (Kohana::config('twitter.format'));
+		$this->format = ($format) ? $format : (Kohana::config('twitter')->format);
 	}
 
 	
@@ -1122,7 +1124,7 @@ class Twitter_Core {
 	{
 		foreach ($this->search_options as $option => $value)
 		{
-			if (!$value) $this->search_options[$option] = Kohana::config("twitter.$option");
+			if (!$value) $this->search_options[$option] = Kohana::config("twitter")->$option;
 		}
 
 		$this->add(array_keys($this->search_options), array_values($this->search_options));
@@ -1321,7 +1323,7 @@ class Twitter_Core {
 		$this->headers = '';
 
 		// debug output
-		if (!IN_PRODUCTION AND Kohana::config('twitter.debug')) $this->debugo($data, $post_data);
+		if (!IN_PRODUCTION AND Kohana::config('twitter')->debug) $this->debugo($data, $post_data);
 
 		return $data;
 	}
@@ -1336,7 +1338,7 @@ class Twitter_Core {
 	{
 		$method = (!$post) ? 'Get' : 'Post';
 
-		print '<a href="'.request::referrer().'">Back</a><br/>';
+		print '<a href="'.request::$referrer.'">Back</a><br/>';
 		print '<h3>Status:</h3>'.$this->status;
 		print '<h3>Url:</h3>'.$this->last;
 		if (strpos($this->last, ' ')) print '<br/><b style="color:red">Warning:</b> You have a space in your url';
@@ -1367,7 +1369,7 @@ class Twitter_Core {
 		}
 
 		// call Profiler
-		new Profiler;
+		new Codebench;
 	}
 
 }
